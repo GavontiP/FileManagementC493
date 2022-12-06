@@ -1,14 +1,22 @@
 package filemanagementcs493.utils;
 // Java program to implement
 // a Singly Linked List
+
+import java.util.ArrayList;
+import filemanagementcs493.application.Filess;
 public class LinkedList {
 
 	Node head; // head of list
+        public static int size = 0;
+
+    public static int getSize() {
+        return size;
+    }
 
 	// Linked list Node.
 	// Node is a static nested class
 	// so main() can access it
-	static class Node {
+	public static class Node {
 
 		String data;
 		Node next;
@@ -49,6 +57,7 @@ public class LinkedList {
 
 		// Return the list by head
 //                System.out.println("inserted: " + item.toString());
+                size++;
 		return list;
 	}
 
@@ -69,6 +78,28 @@ public class LinkedList {
                         System.out.println();
 		}
 
+	}
+        
+        // Method to print the LinkedList.
+	public static ArrayList putInArr(LinkedList list)
+	{
+            ArrayList<Object> t = new ArrayList<>();
+            int counter = 0;
+		Node currNode = list.head;
+
+		System.out.print("LinkedList: ");
+
+		// Traverse through the LinkedList
+		while (currNode != null) {
+			// Print the data at current node
+			t.add(currNode.data);
+
+			// Go to next node
+			currNode = currNode.next;
+                        System.out.println();
+                        counter++;
+		}
+                return t;
 	}
 
 	// Method to delete a node in the LinkedList by POSITION
@@ -139,7 +170,7 @@ public class LinkedList {
 			System.out.println(
 				index + " position element not found");
 		}
-
+                size--;
 		// return the List
 		return list;
 	}
@@ -154,8 +185,7 @@ public class LinkedList {
 
 		//
 		// CASE 1:
-		// If index is 0, then head node itself is to be
-		// deleted
+		// If index is 0, then head node itself is what we want
 
 		if (index == 0 && currNode != null) {
 			returnValue = list.head.data;
@@ -188,7 +218,7 @@ public class LinkedList {
 
 				// Display the message
 				System.out.println(
-					index + " position element found");
+					 index + " position element found");
 				break;
 			}
 			else {
@@ -211,7 +241,7 @@ public class LinkedList {
 		if (currNode == null) {
 			// Display the message
 			System.out.println(
-				index + " position element not found");
+			index + " position element not found");
 		}
 
 		// return the List

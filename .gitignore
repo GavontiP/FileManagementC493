@@ -2,3 +2,5 @@
 /dist/
 /.vscode
 /nbproject
+/dist
+/.gitignore

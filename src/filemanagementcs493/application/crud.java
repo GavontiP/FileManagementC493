@@ -21,10 +21,6 @@ public abstract class crud {
      */
     protected String size;
 
-    /**
-     *
-     */
-    protected String contains;
 
     /**
      *
@@ -35,10 +31,9 @@ public abstract class crud {
      */
     protected String name;
 
-    public crud(String name, String location, String size, String contains, String created) {
+    public crud(String name, String location, String size,String created) {
         this.location = location;
         this.size = size;
-        this.contains = contains;
         this.created = created;
         this.name = name;
     }
@@ -67,14 +62,6 @@ public abstract class crud {
         this.size = size;
     }
 
-    public String getContains() {
-        return contains;
-    }
-
-    public void setContains(String contains) {
-        this.contains = contains;
-    }
-
     public String getCreated() {
         return created;
     }
@@ -99,7 +86,7 @@ public abstract class crud {
 
     @Override
     public String toString() {
-        return " " + type + " " + location + " " + size + " " + contains + " " + created + " " + name;
+        return " " + type + " " + location + " " + size + " " + created + " " + name;
     }
     
 
@@ -112,11 +99,10 @@ public abstract class crud {
     public Boolean validate() {
         boolean returnValue = true;
 //        try {
-            if (type == null || location == null || size == null || created == null
-                    || contains == null) {
+            if (type == null || location == null || size == null || created == null) {
                 returnValue = false;
             }
-            if (type == "" || location == "" || size == "" || created == ""|| contains == "") {
+            if (type == "" || location == "" || size == "" || created == "") {
                 returnValue = false;
             }
 //            if (!dateArrived.matches("\\d{4}-\\d{2}-\\d{2}")) {

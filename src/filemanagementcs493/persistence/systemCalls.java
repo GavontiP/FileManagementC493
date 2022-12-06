@@ -5,9 +5,10 @@
  */
 package filemanagementcs493.persistence;
 
-import filemanagementcs493.application.Files;
+import filemanagementcs493.application.Filess;
 import filemanagementcs493.utils.LinkedList;
 import static filemanagementcs493.utils.LinkedList.insert;
+import static filemanagementcs493.utils.utils.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -50,7 +51,7 @@ public class systemCalls implements SystemInterface{
 //                        "directory:"
 //                        + file.getCanonicalPath());
 //                    displayDirectory(file);
-        Files filess = new Files(file.getName(), file.getCanonicalPath(), "27.3GB",  "contains", "created");
+        Filess filess = new Filess(file.getName(), file.getCanonicalPath(),String.format("%,d", file.length()), getFileCreationTime(file).toString());
         database.add(filess);
 //LinkedList.insert(filelist, filess);
                 }
@@ -79,9 +80,9 @@ public class systemCalls implements SystemInterface{
     File theDir = new File("C:\\Users\\gavon\\help");
     if (!theDir.exists()){
         value = theDir.mkdir();
-        Files filess = new Files("help", "C:\\Users\\gavon\\help", "27.3GB",  "contains", "created");
+        Filess filess = new Filess("help", "C:\\Users\\gavon\\help",  getFileSizeBytes(theDir),getFileCreationTime(theDir).toString());
         database.add(filess);
-    }
+    }        System.out.println(String.valueOf(theDir.length()));
     
         return value;
     }
@@ -94,7 +95,7 @@ public class systemCalls implements SystemInterface{
     @Override
     public boolean delete(Object item) {
             File theDir = new File("C:\\Users\\gavon\\help");
-            Files filess = new Files("help", "C:\\Users\\gavon\\help", "27.3GB",  "contains", "created");
+            Filess filess = new Filess("help", "C:\\Users\\gavon\\help", "27.3GB", "created");
             // function to delete subdirectories and files
         // store all the paths of files and folders present
         // inside directory
@@ -117,5 +118,6 @@ public class systemCalls implements SystemInterface{
     return theDir.delete();
     
     }
+    
    
 }
