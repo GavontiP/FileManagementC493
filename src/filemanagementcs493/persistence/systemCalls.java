@@ -7,7 +7,6 @@ package filemanagementcs493.persistence;
 
 import filemanagementcs493.application.Filess;
 import filemanagementcs493.utils.LinkedList;
-import static filemanagementcs493.utils.LinkedList.insert;
 import static filemanagementcs493.utils.utils.*;
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +20,7 @@ import java.util.Comparator;
  */
 public class systemCalls implements SystemInterface{
     private final LinkedList filelist = new LinkedList();
-    private fileDao database = new fileDao();
+    private final fileDao database = new fileDao();
 
 
 
@@ -33,8 +32,8 @@ public class systemCalls implements SystemInterface{
     public LinkedList getAll(Object item)
     {
          String itemDeconstructed[];
-        // deconstruct the object into an array
         itemDeconstructed = item.toString().split(" ");
+        int counter = 0;
  
         try {
             File currentDir = new File(itemDeconstructed[2]);
@@ -46,28 +45,22 @@ public class systemCalls implements SystemInterface{
                 // Checking of file inside directory
                 if (file.isDirectory()) {
  
-//                    // Display directories inside directory
-//                    System.out.println(
-//                        "directory:"
-//                        + file.getCanonicalPath());
-//                    displayDirectory(file);
+// Display directories inside directory
         Filess filess = new Filess(file.getName(), file.getCanonicalPath(),String.format("%,d", file.length()), getFileCreationTime(file).toString());
         database.add(filess);
-//LinkedList.insert(filelist, filess);
                 }
- 
 //              // Simply get the path
-//                else {
-//                    System.out.println(
-//                        "     file:"
-//                        + file.getCanonicalPath());
-//                }
+                else {
+        Filess filess = new Filess(file.getName(), file.getCanonicalPath(),String.format("%,d", file.length()),getFileCreationTime(file).toString());
+        database.add(filess);
+        counter++;
+                }
             }
         }
  
         // if any exceptions occurs printStackTrace
         catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+                System.out.println(e);
         }
 
         return filelist;
@@ -89,7 +82,30 @@ public class systemCalls implements SystemInterface{
 
     @Override
     public boolean update(Object item) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       // Create an object of the File class
+        // Replace the file path with path of the directory
+        File file = new File("/home/mayur/Folder/GFG.java");
+  
+        // Create an object of the File class
+        // Replace the file path with path of the directory
+        File rename = new File("/home/mayur/Folder/HelloWorld.java");
+  
+        // store the return value of renameTo() method in
+        // flag
+        boolean flag = file.renameTo(rename);
+  
+        // if renameTo() return true then if block is
+        // executed
+        if (flag == true) {
+            System.out.println("File Successfully Rename");
+            database.update(item);
+        }
+        // if renameTo() return false then else block is
+        // executed
+        else {
+            System.out.println("Operation Failed");
+        }
+        return flag;
     }
 
     @Override

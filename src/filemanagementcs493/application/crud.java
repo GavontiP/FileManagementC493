@@ -86,7 +86,7 @@ public abstract class crud {
 
     @Override
     public String toString() {
-        return " " + type + " " + location + " " + size + " " + created + " " + name;
+        return type + " " + name + " " + location + " " + size + " " + created;
     }
     
 

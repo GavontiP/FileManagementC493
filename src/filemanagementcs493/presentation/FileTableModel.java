@@ -5,7 +5,7 @@ import filemanagementcs493.utils.*; // Needed for the domain classes
 
 public class FileTableModel extends AbstractTableModel {
     private LinkedList filelist = new LinkedList();
-    private String columnNames[] = { "Type", "Name", "Location", "Size", "Created" };
+    private final String columnNames[] = { "Type", "Name", "Location", "Size", "Created" };
     Object item;
 
     // done
@@ -28,10 +28,16 @@ public class FileTableModel extends AbstractTableModel {
     }
 
     // done?
+    @Override
     public Object getValueAt(int row, int column) {
-        String temp[] = LinkedList.findAtPosition(filelist, row).toString().split(" ");
-
+        try{
+        String temp[] = filelist.findAtPosition(filelist, row).split(" ");
         return temp[column];
+        
+        }catch(ArrayIndexOutOfBoundsException e){
+            String temp[] = filelist.findAtPosition(filelist, 0).split(" ");
+            return temp[column];
+        }
     }
 
     // done

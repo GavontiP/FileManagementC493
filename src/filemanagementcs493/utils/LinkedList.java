@@ -3,20 +3,27 @@ package filemanagementcs493.utils;
 // a Singly Linked List
 
 import java.util.ArrayList;
-import filemanagementcs493.application.Filess;
-public class LinkedList {
+public class LinkedList<Filess> {
 
 	Node head; // head of list
-        public static int size = 0;
+        public int size = 0;
 
-    public static int getSize() {
-        return size;
+    public int getSize() {
+        return this.size;
+    }
+
+    public Node getHead() {
+        return head;
+    }
+
+    public void setHead(Node head) {
+        this.head = head;
     }
 
 	// Linked list Node.
 	// Node is a static nested class
 	// so main() can access it
-	public static class Node {
+	public class Node {
 
 		String data;
 		Node next;
@@ -30,7 +37,7 @@ public class LinkedList {
 	}
 
 	// Method to insert a new node
-	public static LinkedList insert(LinkedList list,
+	public  LinkedList insert(LinkedList list,
 									Object item)
 	{
 		// Create a new node with given data
@@ -56,13 +63,13 @@ public class LinkedList {
 		}
 
 		// Return the list by head
-//                System.out.println("inserted: " + item.toString());
+                System.out.println("inserted: " + item.toString());
                 size++;
 		return list;
 	}
 
 	// Method to print the LinkedList.
-	public static void printList(LinkedList list)
+	public void printList(LinkedList list)
 	{
 		Node currNode = list.head;
 
@@ -81,7 +88,7 @@ public class LinkedList {
 	}
         
         // Method to print the LinkedList.
-	public static ArrayList putInArr(LinkedList list)
+	public ArrayList putInArr(LinkedList list)
 	{
             ArrayList<Object> t = new ArrayList<>();
             int counter = 0;
@@ -103,7 +110,7 @@ public class LinkedList {
 	}
 
 	// Method to delete a node in the LinkedList by POSITION
-	public static LinkedList
+	public LinkedList
 	deleteAtPosition(LinkedList list, int index)
 	{
 		// Store head node
@@ -176,7 +183,7 @@ public class LinkedList {
 	}
         
         // Method to delete a node in the LinkedList by POSITION
-	public static String
+	public String
 	findAtPosition(LinkedList list, int index)
 	{
             String returnValue = ""; 
@@ -248,55 +255,5 @@ public class LinkedList {
 		return returnValue;
 	}
 
-//	// **************MAIN METHOD**************
-//
-//	// method to create a Singly linked list with n nodes
-//	public static void main(String[] args)
-//	{
-//		/* Start with the empty list. */
-//		LinkedList list = new LinkedList();
-//
-//		//
-//		// ******INSERTION******
-//		//
-//
-//		// Insert the values
-//		list = insert(list, 1);
-//		list = insert(list, 2);
-//		list = insert(list, 3);
-//		list = insert(list, 4);
-//		list = insert(list, 5);
-//		list = insert(list, 6);
-//		list = insert(list, 7);
-//		list = insert(list, 8);
-//
-//		// Print the LinkedList
-//		printList(list);
-//
-//		//
-//		// ******DELETION AT POSITION******
-//		//
-//
-//		// Delete node at position 0
-//		// In this case the key is ***at head***
-//		deleteAtPosition(list, 0);
-//
-//		// Print the LinkedList
-//		printList(list);
-//
-//		// Delete node at position 2
-//		// In this case the key is present ***in the
-//		// middle***
-//		deleteAtPosition(list, 2);
-//
-//		// Print the LinkedList
-//		printList(list);
-//
-//		// Delete node at position 10
-//		// In this case the key is ***not present***
-//		deleteAtPosition(list, 10);
-//
-//		// Print the LinkedList
-//		printList(list);
-//	}
+
 }

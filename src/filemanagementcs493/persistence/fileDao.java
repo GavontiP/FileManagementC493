@@ -3,6 +3,7 @@ package filemanagementcs493.persistence;
 import filemanagementcs493.application.*; // Needed for the domain classes
 import java.sql.*; // Needed for DB server operations
 import filemanagementcs493.utils.LinkedList; // Needed for the ArrayList ADT
+import java.util.Arrays;
 
 /**
  *
@@ -13,6 +14,7 @@ public class fileDao implements Dao {
     private Statement statement = null;
     private Connection connection = null;
     private ResultSet result = null;
+    private String tableName = "directory3";
 
 
     public fileDao() {
@@ -32,33 +34,30 @@ public class fileDao implements Dao {
         try {
             // Exceute a select SQL command on the adoptable pets table in the animals
             // database
-            result = statement.executeQuery("select * from directory2");
+            result = statement.executeQuery("select * from " + tableName + "");
             // Iterate through all rows and add the values from each into the animals
             // ArrayList
             while (result.next()) {
-//                if (tempSterilized == 1) {
-//                    if (breed.contains("dog")) {
-                        Filess file = new Filess(result.getString(2), result.getString(3), result.getString(4), result.getString(5));
-                        LinkedList.insert(filelist,file);
-//                    } else if (breed.contains("cat")) {
-//                        Cat cat = new Cat(result.getString(2), result.getString(3), true, result.getString(5));
-//                        animals.add(cat);
-//                    }
-//                } else if (tempSterilized == 0) {
-//                    if (breed.contains("dog")) {
-//                        Dog dog = new Dog(result.getString(2), result.getString(3), false, result.getString(5));
-//                        animals.add(dog);
-//                    } else if (breed.contains("cat")) {
-//                        Cat cat = new Cat(result.getString(2), result.getString(3), false, result.getString(5));
-//                        animals.add(cat);
-//                    }
-//                }
+                        Filess file = new Filess(result.getString(1), result.getString(5),result.getString(4), result.getString(3));
+                        filelist.insert(filelist,file);
             }
         } catch (SQLException sqlException) {
             System.out.println("error: " + sqlException.getMessage());
         }
         return filelist;
     }
+    
+    public void deleteAll() {
+        try {
+            // Exceute a select SQL command on the adoptable pets table in the animals
+            // database
+             statement.execute("DELETE FROM " + tableName + "");
+
+        } catch (SQLException sqlException) {
+            System.out.println("error: " + sqlException.getMessage());
+        }
+    }
+
 
     @Override
     public boolean add(Object item) {
@@ -67,22 +66,40 @@ public class fileDao implements Dao {
         // deconstruct the object into an array
         itemDeconstructed = item.toString().split(" ");
         // formatting the mysql query string
-        String query = " insert into directory2 (type, name, location, size, created)"
+        String query = " insert into " + tableName + " (type, name, location, size, created)"
                 + " values (?, ?, ?, ?, ?)";
         try {
             // Prepare Statement
             PreparedStatement myStmt = connection.prepareStatement(query);
-            myStmt.setString(1, itemDeconstructed[1]);
-            myStmt.setString(2, itemDeconstructed[5]);
-            myStmt.setString(3, itemDeconstructed[2]);
-            myStmt.setString(4, itemDeconstructed[3]);
-            myStmt.setString(5, itemDeconstructed[4]);
+            // setting local variables using the deconstructed object
+            switch (itemDeconstructed.length) {
+                case 7:
+                    myStmt.setString(1, itemDeconstructed[0]);
+                    myStmt.setString(2, itemDeconstructed[2] + " "  + itemDeconstructed[1]);
+                    myStmt.setString(3, itemDeconstructed[3] + " " + itemDeconstructed[2]);
+                    myStmt.setString(5, itemDeconstructed[6]);
+                    myStmt.setString(4, itemDeconstructed[5]);
+                    break;
+                case 5:
+                    System.out.println(Arrays.toString(itemDeconstructed));
+                    myStmt.setString(1, itemDeconstructed[0]);
+                    myStmt.setString(2, itemDeconstructed[1]);
+                    myStmt.setString(3, itemDeconstructed[2]);
+                    myStmt.setString(4, itemDeconstructed[3]);
+                    myStmt.setString(5, itemDeconstructed[4]);
+                    break;
+                default:
+                    System.out.println("THIS LENGTH IS DIFFERENT!!!");
+                    break;
+            }
+        
             // Execute SQL query
-            myStmt.execute();
-            System.out.println(itemDeconstructed[1]);
+            if(myStmt.execute()){
+                System.out.println("worked!!");
+            }
         } catch (SQLException e) {
             succesful = false;
-            System.out.println("SQL Exception: " + e);
+        System.out.println("SQL Exception: " + e);
         }
         return succesful;
     }
@@ -95,7 +112,7 @@ public class fileDao implements Dao {
         itemDeconstructed = item.toString().split(" ");
 
         // formatting the mysql query string
-        String query = " update directory2 set type = '" + itemDeconstructed[1] + "', location = '" + itemDeconstructed[2] + "', size = '" + itemDeconstructed[3]+ "', created = '" + itemDeconstructed[5] + "' where name = '" + itemDeconstructed[6] + "';";
+        String query = " update " + tableName + " set type = '" + itemDeconstructed[1] + "', location = '" + itemDeconstructed[2] + "', size = '" + itemDeconstructed[3]+ "', created = '" + itemDeconstructed[5] + "' where name = '" + itemDeconstructed[6] + "';";
         System.out.println(query);
         try {
             // Execute SQL query
@@ -106,7 +123,7 @@ public class fileDao implements Dao {
                 System.out.println( itemDeconstructed[6] + " record found and updated");
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("SQL Exception: " + e);
         }
 
         return succesful;
@@ -123,7 +140,7 @@ public class fileDao implements Dao {
             name = itemDeconstructed[6];
         
         // formatting the mysql query string
-        String query = " delete from directory2 where name = '" + name + "'";
+        String query = " delete from " + tableName + " where name = '" + name + "'";
         try {
             // Execute SQL query
             if (statement.executeUpdate(query) == 0) {
@@ -133,7 +150,7 @@ public class fileDao implements Dao {
                 System.out.println(name + " record found and deleted");
             }
         } catch (Exception e) {
-            System.out.println(e);
+             System.out.println("SQL Exception: " + e);
         }
 
         return succesful;

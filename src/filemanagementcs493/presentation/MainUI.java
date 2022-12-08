@@ -13,9 +13,11 @@ import java.awt.event.FocusListener;
 import javax.swing.JOptionPane;
 import filemanagementcs493.persistence.fileDao;
 import filemanagementcs493.persistence.systemCalls;
+import filemanagementcs493.state;
 import java.awt.GridLayout;
 import static java.nio.file.Files.delete;
 import filemanagementcs493.utils.*;
+import java.util.Arrays;
 import javax.swing.JFrame;
 
 /**
@@ -24,7 +26,7 @@ import javax.swing.JFrame;
  */
 public class MainUI extends javax.swing.JFrame {
         private int selectedRow = 0;
-        LinkedList filelist = new LinkedList();
+        LinkedList<Filess> filelist = new LinkedList();
         fileDao database = new fileDao();
         systemCalls systemint = new systemCalls();
             private FileTableModel model = new FileTableModel();
@@ -33,23 +35,23 @@ public class MainUI extends javax.swing.JFrame {
      */
     public MainUI() {
         initComponents();
-        animalsTbl.setAutoCreateRowSorter(true);
-        animalsTbl.getColumnModel().getColumn(0).setPreferredWidth(5);
-        animalsTbl.getColumnModel().getColumn(2).setPreferredWidth(25);
-        animalsTbl.getColumnModel().getColumn(3).setPreferredWidth(5);
-        animalsTbl.getColumnModel().getColumn(4).setPreferredWidth(25);
-        animalsTbl.getColumnModel().getColumn(1).setPreferredWidth(25);
+        filesTbl.setAutoCreateRowSorter(true);
+//        filesTbl.getColumnModel().getColumn(0).setPreferredWidth(5);
+//        filesTbl.getColumnModel().getColumn(2).setPreferredWidth(250);
+//        filesTbl.getColumnModel().getColumn(3).setPreferredWidth(5);
+//        filesTbl.getColumnModel().getColumn(4).setPreferredWidth(25);
+//        filesTbl.getColumnModel().getColumn(1).setPreferredWidth(25);
         nameLbl.setDisplayedMnemonic('n');
         nameLbl.setLabelFor(nameTxtFld);
-        breedLbl.setDisplayedMnemonic('b');
-        breedLbl.setLabelFor(breedTxtFld);
+        pathLbl.setDisplayedMnemonic('b');
+        pathLbl.setLabelFor(pathTxtField);
         exitMenuItem.setMnemonic('x');
         addBtn.setMnemonic('a');
         modifyBtn.setMnemonic('o');
         deleteBtn.setMnemonic('l');
         exitBtn.setMnemonic('e');
         fileMenuItem.setMnemonic('f');
-//        clearBtn.setMnemonic('c');
+        clearBtn.setMnemonic('c');
 //
 //        // create new month focus listener
 //        monthTxtFld.addFocusListener(new FocusListener() {
@@ -92,54 +94,83 @@ public class MainUI extends javax.swing.JFrame {
 //                // Do nothing when focus is lost
 //            }
 //        });
-                
-        int temp = database.getAll().getSize();
+        LinkedList term = database.getAll();
+        int temp = term.getSize();
         for (int i = 0; i < temp; i++) {
+            System.out.println(temp);
             String itemDeconstructed[];
-            String item = LinkedList.findAtPosition(database.getAll(), i);
+            String item = term.findAtPosition(term, i);
             itemDeconstructed = item.split(" ");
-            // setting local variables using the deconstructed object
-            Filess file = new Filess(itemDeconstructed[1], itemDeconstructed[2], itemDeconstructed[3], itemDeconstructed[4]);
-            LinkedList.insert(filelist,file);
+           if (itemDeconstructed.length == 7) {
+      Filess file = new Filess(itemDeconstructed[2] + "-" + itemDeconstructed[1],  itemDeconstructed[5], itemDeconstructed[4], itemDeconstructed[3]);
+       filelist.insert(filelist,file);
             model.setAnimals(filelist);
-            animalsTbl.setModel(model);
+            filesTbl.setModel(model);
             model.fireTableDataChanged();
-            animalsTbl.setColumnSelectionAllowed(false);
-            animalsTbl.setRowSelectionAllowed(true);
+            filesTbl.setColumnSelectionAllowed(false);
+            filesTbl.setRowSelectionAllowed(true);
 
+        } else if (itemDeconstructed.length == 5) {
+           Filess file = new Filess(itemDeconstructed[1], itemDeconstructed[4], itemDeconstructed[3], itemDeconstructed[2]); 
+           filelist.insert(filelist,file);
+            model.setAnimals(filelist);
+            filesTbl.setModel(model);
+            model.fireTableDataChanged();
+            filesTbl.setColumnSelectionAllowed(false);
+            filesTbl.setRowSelectionAllowed(true);
         }
-        animalsTbl.addMouseListener(new java.awt.event.MouseAdapter() {
+//          
+        System.out.println(filelist.getSize());
+        }
+        filesTbl.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                String date;
-                String sterilized = "";
-                String type = "";
-                int row = animalsTbl.rowAtPoint(evt.getPoint());
+                LinkedList<Filess> filelisttemp = new LinkedList();
+                filelisttemp.printList(filelisttemp);
+                int row = filesTbl.rowAtPoint(evt.getPoint());
                 if (row >= 0) {
                     selectedRow = row;
-                    breedTxtFld.setText(model.getValueAt(row, 1).toString());
-                    nameTxtFld.setText(model.getValueAt(row, 2).toString());
-                    date = model.getValueAt(row, 4).toString();
-//                    yearTxtFld.setText(date.split("-")[0]);
-//                    monthTxtFld.setText(date.split("-")[1]);
-//                    dayTxtFld.setText(date.split("-")[2]);
-                    sterilized = model.getValueAt(row, 3).toString();
-//                    if (sterilized.contains("true")) {
-//                        sterilizedCombo.setSelectedIndex(0);
-//                    } else {
-//                        sterilizedCombo.setSelectedIndex(1);
-//
-//                    }
-                    type = model.getValueAt(row, 0).toString();
-//                    if (type.contains("dog")) {
-//                        typeCombo.setSelectedIndex(0);
-//                    } else {
-//                        typeCombo.setSelectedIndex(1);
-//
-//                    }
-
+                    pathTxtField.setText(model.getValueAt(row, 2).toString());
+                    nameTxtFld.setText(model.getValueAt(row, 1).toString());
                 }
+                state.currLocation = model.getValueAt(row, 2).toString();
+                System.out.println(state.currLocation);
+                database.deleteAll();
+                Filess fileclass = new Filess("help", state.currLocation, "27.3GB", "created");
+                systemint.getAll(fileclass);
+       LinkedList term = database.getAll();
+        int temp = term.getSize();
+        System.out.println(temp);
+        for (int i = 0; i < temp; i++) {
+            String itemDeconstructed[];
+            String item = filelisttemp.findAtPosition(term,i );
+            itemDeconstructed = item.split(" ");
+            System.out.println(Arrays.toString(itemDeconstructed));
+           if (itemDeconstructed.length == 7) {
+      Filess file = new Filess(itemDeconstructed[2] + "-" + itemDeconstructed[1],  itemDeconstructed[5], itemDeconstructed[4], itemDeconstructed[3]);
+       filelisttemp.insert(filelisttemp,file);
+            model.setAnimals(filelisttemp);
+            filesTbl.setModel(model);
+            model.fireTableDataChanged();
+            filesTbl.setColumnSelectionAllowed(false);
+            filesTbl.setRowSelectionAllowed(true);
+
+        } else if (itemDeconstructed.length == 5) {
+             System.out.println(Arrays.toString(itemDeconstructed));
+           Filess file = new Filess(itemDeconstructed[1], itemDeconstructed[4], itemDeconstructed[3], itemDeconstructed[2]); 
+           filelisttemp.insert(filelisttemp,file);
+            model.setAnimals(filelisttemp);
+            filesTbl.setModel(model);
+            model.fireTableDataChanged();
+            filesTbl.setColumnSelectionAllowed(false);
+            filesTbl.setRowSelectionAllowed(true);
+        }
+         
+        }
+                
             }
+        
+        
         });
 
     }
@@ -163,16 +194,16 @@ public class MainUI extends javax.swing.JFrame {
         jList1 = new javax.swing.JList<>();
         jMenuItem1 = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
-        animalsTbl = new javax.swing.JTable();
-        breedTxtFld = new javax.swing.JTextField();
+        filesTbl = new javax.swing.JTable();
+        pathTxtField = new javax.swing.JTextField();
         nameTxtFld = new javax.swing.JTextField();
-        breedLbl = new javax.swing.JLabel();
+        pathLbl = new javax.swing.JLabel();
         nameLbl = new javax.swing.JLabel();
         addBtn = new javax.swing.JButton();
         modifyBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
         exitBtn = new javax.swing.JButton();
-        titlelbl = new javax.swing.JLabel();
+        clearBtn = new javax.swing.JButton();
         fileMenu = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
@@ -203,10 +234,15 @@ public class MainUI extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Regis ResQ");
+        setTitle("File Management cs493");
 
-        animalsTbl.setModel(new javax.swing.table.DefaultTableModel(
+        filesTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -216,11 +252,38 @@ public class MainUI extends javax.swing.JFrame {
             new String [] {
                 "Type", "Location", "Name", "Size", "Arrived"
             }
-        ));
-        animalsTbl.setToolTipText("");
-        jScrollPane1.setViewportView(animalsTbl);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
+            };
 
-        breedLbl.setText("Path/Location");
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        filesTbl.setToolTipText("");
+        filesTbl.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                filesTblFocusGained(evt);
+            }
+        });
+        filesTbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                filesTblMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(filesTbl);
+        if (filesTbl.getColumnModel().getColumnCount() > 0) {
+            filesTbl.getColumnModel().getColumn(0).setMinWidth(50);
+            filesTbl.getColumnModel().getColumn(0).setMaxWidth(10);
+            filesTbl.getColumnModel().getColumn(1).setMinWidth(250);
+            filesTbl.getColumnModel().getColumn(2).setMinWidth(50);
+            filesTbl.getColumnModel().getColumn(3).setMinWidth(50);
+            filesTbl.getColumnModel().getColumn(3).setMaxWidth(10);
+            filesTbl.getColumnModel().getColumn(4).setMinWidth(50);
+        }
+
+        pathLbl.setText("Path/Location");
 
         nameLbl.setText("Name");
 
@@ -252,9 +315,12 @@ public class MainUI extends javax.swing.JFrame {
             }
         });
 
-        titlelbl.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        titlelbl.setText("File Management");
-        titlelbl.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        clearBtn.setText("Clear");
+        clearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearBtnActionPerformed(evt);
+            }
+        });
 
         fileMenuItem.setText("File");
 
@@ -278,49 +344,44 @@ public class MainUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(modifyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameLbl)
-                            .addComponent(breedLbl))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(nameTxtFld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
-                            .addComponent(breedTxtFld))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(titlelbl)
-                                .addGap(160, 160, 160))))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(modifyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(nameLbl)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                                .addComponent(nameTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(pathLbl)
+                                .addGap(34, 34, 34)
+                                .addComponent(pathTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(titlelbl)
-                .addGap(52, 52, 52)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pathTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clearBtn)
+                    .addComponent(pathLbl)
                     .addComponent(nameTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nameLbl))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(breedTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(breedLbl))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addBtn)
                     .addComponent(modifyBtn)
@@ -333,17 +394,27 @@ public class MainUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
+        nameTxtFld.setText("");
+        pathTxtField.setText("");
+    }//GEN-LAST:event_clearBtnActionPerformed
+
+    private void filesTblFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_filesTblFocusGained
+        System.out.println("clicked");
+    }//GEN-LAST:event_filesTblFocusGained
+
+    private void filesTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filesTblMouseClicked
+          System.out.println("clicked");
+    }//GEN-LAST:event_filesTblMouseClicked
+ 
     private void modifyBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_modifyBtnActionPerformed
-//        if (selectedRow < 0)
-//            return;
-//
-//        String date = (yearTxtFld.getText() + "-" + monthTxtFld.getText() + "-" + dayTxtFld.getText());
-//        String sterilizedValue = sterilizedCombo.getSelectedItem().toString();
-//        String type = typeCombo.getSelectedItem().toString();
-//        String name = nameTxtFld.getText();
-//        String breed = breedTxtFld.getText();
-//        Animal a = animals.get(selectedRow);
-//        a.setBreed(breedTxtFld.getText());
+        if (selectedRow < 0)
+            return;
+        String name = nameTxtFld.getText();
+        String path = pathTxtField.getText();
+//        Filess a = new Filess(
+        System.out.println(filelist.findAtPosition(filelist,selectedRow));
+//        a.setBreed(pathTxtField.getText());
 //        a.setName(nameTxtFld.getText());
 //        a.setSterilized(sterilizedValue == "Yes" ? true : false);
 //        a.setDateArrived(yearTxtFld.getText() + "-" + monthTxtFld.getText() + "-" + dayTxtFld.getText());
@@ -361,7 +432,7 @@ public class MainUI extends javax.swing.JFrame {
 //        typeCombo.setSelectedIndex(0);
 //        sterilizedCombo.setSelectedIndex(0);
 //        nameTxtFld.setText("");
-//        breedTxtFld.setText("");
+//        pathTxtField.setText("");
 //        yearTxtFld.setText("");
 //        dayTxtFld.setText("");
 //        monthTxtFld.setText("");
@@ -371,18 +442,21 @@ public class MainUI extends javax.swing.JFrame {
 //        if (selectedRow < 0)
 //            return;
 //
-//        Animal a = animals.get(selectedRow);
+        String name = nameTxtFld.getText();
+        String path = pathTxtField.getText();
+//        Filess a = new Filess(
+        System.out.println(filelist.findAtPosition(filelist,selectedRow));
 //
-//        int des;
-//        des = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this animal?", "Deletion Confirmation",
-//                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-//
-//        if (des == 0) {
-//            // this mean that the user click the yes option
-//            // Put your code here that you want to execute when the user click the yes
-//            // option
+        int des;
+        des = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this file?", "Deletion Confirmation",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (des == 0) {
+            // this mean that the user click the yes option
+            // Put your code here that you want to execute when the user click the yes
+            // option
 //            try {
-//                animals.remove(selectedRow);
+////                animals.remove(selectedRow);
 //            } catch (ArrayIndexOutOfBoundsException e) {
 //                JOptionPane.showMessageDialog(null, "Input Validation Error message");
 //                return;
@@ -408,14 +482,7 @@ public class MainUI extends javax.swing.JFrame {
 //            // message to user
 //        }
     }// GEN-LAST:event_deleteBtnActionPerformed
-
-    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearBtnActionPerformed
-//        nameTxtFld.setText("");
-//        breedTxtFld.setText("");
-//        yearTxtFld.setText("YYYY");
-//        dayTxtFld.setText("DD");
-//        monthTxtFld.setText("MM");
-    }// GEN-LAST:event_clearBtnActionPerformed
+    }
 
     private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_exitBtnActionPerformed
         System.exit(0);
@@ -531,14 +598,13 @@ public class MainUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
-    private javax.swing.JTable animalsTbl;
-    private javax.swing.JLabel breedLbl;
-    private javax.swing.JTextField breedTxtFld;
+    private javax.swing.JButton clearBtn;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JButton exitBtn;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenuBar fileMenu;
     private javax.swing.JMenu fileMenuItem;
+    private javax.swing.JTable filesTbl;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu2;
@@ -549,6 +615,7 @@ public class MainUI extends javax.swing.JFrame {
     private javax.swing.JButton modifyBtn;
     private javax.swing.JLabel nameLbl;
     private javax.swing.JTextField nameTxtFld;
-    private javax.swing.JLabel titlelbl;
+    private javax.swing.JLabel pathLbl;
+    private javax.swing.JTextField pathTxtField;
     // End of variables declaration//GEN-END:variables
 }
