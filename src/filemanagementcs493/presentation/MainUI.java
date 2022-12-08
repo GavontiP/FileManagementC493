@@ -43,67 +43,55 @@ public class MainUI extends javax.swing.JFrame {
         nameLbl.setLabelFor(nameTxtFld);
         breedLbl.setDisplayedMnemonic('b');
         breedLbl.setLabelFor(breedTxtFld);
-        sterilizedLbl.setDisplayedMnemonic('s');
-        sterilizedLbl.setLabelFor(sterilizedCombo);
-        animalTypeLbl.setDisplayedMnemonic('t');
-        animalTypeLbl.setLabelFor(typeCombo);
-        dayLbl.setDisplayedMnemonic('d');
-        dayLbl.setLabelFor(dayTxtFld);
-        monthLbl.setDisplayedMnemonic('m');
-        monthLbl.setLabelFor(monthTxtFld);
-        yearLbl.setDisplayedMnemonic('y');
-        yearLbl.setLabelFor(yearTxtFld);
-        arrivalDateLbl.setDisplayedMnemonic('v');
-        arrivalDateLbl.setLabelFor(dayTxtFld);
         exitMenuItem.setMnemonic('x');
         addBtn.setMnemonic('a');
         modifyBtn.setMnemonic('o');
         deleteBtn.setMnemonic('l');
         exitBtn.setMnemonic('e');
         fileMenuItem.setMnemonic('f');
-        clearBtn.setMnemonic('c');
+//        clearBtn.setMnemonic('c');
+//
+//        // create new month focus listener
+//        monthTxtFld.addFocusListener(new FocusListener() {
+//            @Override
+//            public void focusGained(FocusEvent e) {
+//                if (monthTxtFld.getText().equals("MM")) // Default text is "MM"
+//                    monthTxtFld.selectAll(); // Select all text
+//            }
+//
+//            @Override
+//            public void focusLost(FocusEvent arg0) {
+//                // Do nothing when focus is lost
+//            }
+//        });
 
-        // create new month focus listener
-        monthTxtFld.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (monthTxtFld.getText().equals("MM")) // Default text is "MM"
-                    monthTxtFld.selectAll(); // Select all text
-            }
+//        // create new day focus listener
+//        dayTxtFld.addFocusListener(new FocusListener() {
+//            @Override
+//            public void focusGained(FocusEvent e) {
+//                if (dayTxtFld.getText().equals("DD")) // Default text is "MM"
+//                    dayTxtFld.selectAll(); // Select all text
+//            }
+//
+//            @Override
+//            public void focusLost(FocusEvent arg0) {
+//                // Do nothing when focus is lost
+//            }
+//        });
 
-            @Override
-            public void focusLost(FocusEvent arg0) {
-                // Do nothing when focus is lost
-            }
-        });
-
-        // create new day focus listener
-        dayTxtFld.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (dayTxtFld.getText().equals("DD")) // Default text is "MM"
-                    dayTxtFld.selectAll(); // Select all text
-            }
-
-            @Override
-            public void focusLost(FocusEvent arg0) {
-                // Do nothing when focus is lost
-            }
-        });
-
-        // create new year focus listener
-        yearTxtFld.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (yearTxtFld.getText().equals("YYYY")) // Default text is "MM"
-                    yearTxtFld.selectAll(); // Select all text
-            }
-
-            @Override
-            public void focusLost(FocusEvent arg0) {
-                // Do nothing when focus is lost
-            }
-        });
+//        // create new year focus listener
+//        yearTxtFld.addFocusListener(new FocusListener() {
+//            @Override
+//            public void focusGained(FocusEvent e) {
+//                if (yearTxtFld.getText().equals("YYYY")) // Default text is "MM"
+//                    yearTxtFld.selectAll(); // Select all text
+//            }
+//
+//            @Override
+//            public void focusLost(FocusEvent arg0) {
+//                // Do nothing when focus is lost
+//            }
+//        });
                 
         int temp = database.getAll().getSize();
         for (int i = 0; i < temp; i++) {
@@ -132,23 +120,23 @@ public class MainUI extends javax.swing.JFrame {
                     breedTxtFld.setText(model.getValueAt(row, 1).toString());
                     nameTxtFld.setText(model.getValueAt(row, 2).toString());
                     date = model.getValueAt(row, 4).toString();
-                    yearTxtFld.setText(date.split("-")[0]);
-                    monthTxtFld.setText(date.split("-")[1]);
-                    dayTxtFld.setText(date.split("-")[2]);
+//                    yearTxtFld.setText(date.split("-")[0]);
+//                    monthTxtFld.setText(date.split("-")[1]);
+//                    dayTxtFld.setText(date.split("-")[2]);
                     sterilized = model.getValueAt(row, 3).toString();
-                    if (sterilized.contains("true")) {
-                        sterilizedCombo.setSelectedIndex(0);
-                    } else {
-                        sterilizedCombo.setSelectedIndex(1);
-
-                    }
+//                    if (sterilized.contains("true")) {
+//                        sterilizedCombo.setSelectedIndex(0);
+//                    } else {
+//                        sterilizedCombo.setSelectedIndex(1);
+//
+//                    }
                     type = model.getValueAt(row, 0).toString();
-                    if (type.contains("dog")) {
-                        typeCombo.setSelectedIndex(0);
-                    } else {
-                        typeCombo.setSelectedIndex(1);
-
-                    }
+//                    if (type.contains("dog")) {
+//                        typeCombo.setSelectedIndex(0);
+//                    } else {
+//                        typeCombo.setSelectedIndex(1);
+//
+//                    }
 
                 }
             }
@@ -180,23 +168,11 @@ public class MainUI extends javax.swing.JFrame {
         nameTxtFld = new javax.swing.JTextField();
         breedLbl = new javax.swing.JLabel();
         nameLbl = new javax.swing.JLabel();
-        arrivalDateLbl = new javax.swing.JLabel();
-        dayTxtFld = new javax.swing.JTextField();
-        clearBtn = new javax.swing.JButton();
-        animalTypeLbl = new javax.swing.JLabel();
-        typeCombo = new javax.swing.JComboBox<>();
-        sterilizedCombo = new javax.swing.JComboBox<>();
-        sterilizedLbl = new javax.swing.JLabel();
         addBtn = new javax.swing.JButton();
         modifyBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
         exitBtn = new javax.swing.JButton();
         titlelbl = new javax.swing.JLabel();
-        monthTxtFld = new javax.swing.JTextField();
-        yearTxtFld = new javax.swing.JTextField();
-        dayLbl = new javax.swing.JLabel();
-        monthLbl = new javax.swing.JLabel();
-        yearLbl = new javax.swing.JLabel();
         fileMenu = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
@@ -238,44 +214,15 @@ public class MainUI extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Type", "Breed", "Name", "Sterilized", "Arrived"
+                "Type", "Location", "Name", "Size", "Arrived"
             }
         ));
         animalsTbl.setToolTipText("");
         jScrollPane1.setViewportView(animalsTbl);
 
-        breedLbl.setText("Breed");
+        breedLbl.setText("Path/Location");
 
         nameLbl.setText("Name");
-
-        arrivalDateLbl.setText("Arrival Date");
-
-        dayTxtFld.setText("DD");
-        dayTxtFld.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dayTxtFldActionPerformed(evt);
-            }
-        });
-
-        clearBtn.setText("Clear");
-        clearBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearBtnActionPerformed(evt);
-            }
-        });
-
-        animalTypeLbl.setText("Type of Animal");
-
-        typeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dog", "Cat" }));
-        typeCombo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                typeComboActionPerformed(evt);
-            }
-        });
-
-        sterilizedCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No" }));
-
-        sterilizedLbl.setText("Sprayed/Neutred");
 
         addBtn.setText("Add");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -306,28 +253,8 @@ public class MainUI extends javax.swing.JFrame {
         });
 
         titlelbl.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        titlelbl.setText("Regis ResQ");
+        titlelbl.setText("File Management");
         titlelbl.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-
-        monthTxtFld.setText("MM");
-        monthTxtFld.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                monthTxtFldActionPerformed(evt);
-            }
-        });
-
-        yearTxtFld.setText("YYYY");
-        yearTxtFld.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                yearTxtFldActionPerformed(evt);
-            }
-        });
-
-        dayLbl.setText("Day");
-
-        monthLbl.setText("Month");
-
-        yearLbl.setText("Year");
 
         fileMenuItem.setText("File");
 
@@ -352,49 +279,14 @@ public class MainUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(arrivalDateLbl)
-                            .addComponent(animalTypeLbl)
-                            .addComponent(sterilizedLbl)
-                            .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(modifyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(31, 31, 31)
-                                        .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(dayTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(23, 23, 23)
-                                                .addComponent(dayLbl)))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(monthTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(monthLbl)
-                                                .addGap(22, 22, 22)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(yearTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(clearBtn))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(12, 12, 12)
-                                                .addComponent(yearLbl)))))
-                                .addContainerGap())
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(typeCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(sterilizedCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(modifyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nameLbl)
@@ -403,23 +295,24 @@ public class MainUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(nameTxtFld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                             .addComponent(breedTxtFld))
-                        .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(182, 182, 182)
-                .addComponent(titlelbl)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(38, 38, 38))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(titlelbl)
+                                .addGap(160, 160, 160))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(titlelbl)
                 .addGap(52, 52, 52)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nameLbl))
@@ -427,26 +320,6 @@ public class MainUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(breedTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(breedLbl))
-                .addGap(3, 3, 3)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dayLbl)
-                    .addComponent(monthLbl)
-                    .addComponent(yearLbl))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(arrivalDateLbl)
-                    .addComponent(clearBtn)
-                    .addComponent(monthTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(yearTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dayTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(animalTypeLbl)
-                    .addComponent(typeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sterilizedLbl)
-                    .addComponent(sterilizedCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addBtn)
@@ -658,14 +531,9 @@ public class MainUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
-    private javax.swing.JLabel animalTypeLbl;
     private javax.swing.JTable animalsTbl;
-    private javax.swing.JLabel arrivalDateLbl;
     private javax.swing.JLabel breedLbl;
     private javax.swing.JTextField breedTxtFld;
-    private javax.swing.JButton clearBtn;
-    private javax.swing.JLabel dayLbl;
-    private javax.swing.JTextField dayTxtFld;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JButton exitBtn;
     private javax.swing.JMenuItem exitMenuItem;
@@ -679,15 +547,8 @@ public class MainUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JButton modifyBtn;
-    private javax.swing.JLabel monthLbl;
-    private javax.swing.JTextField monthTxtFld;
     private javax.swing.JLabel nameLbl;
     private javax.swing.JTextField nameTxtFld;
-    private javax.swing.JComboBox<String> sterilizedCombo;
-    private javax.swing.JLabel sterilizedLbl;
     private javax.swing.JLabel titlelbl;
-    private javax.swing.JComboBox<String> typeCombo;
-    private javax.swing.JLabel yearLbl;
-    private javax.swing.JTextField yearTxtFld;
     // End of variables declaration//GEN-END:variables
 }

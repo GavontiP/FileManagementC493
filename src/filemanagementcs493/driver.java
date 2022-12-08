@@ -34,7 +34,7 @@ public class driver {
 ////        Files fileclass2 = new Files("one","two","three","four","five");
 ////        file.add(fileclass2);
 ////        LinkedList gfg = database.getAll();
-systemint.getAll(fileclass);
+        systemint.getAll(fileclass);
 ////        LinkedList.printList(database.getAll());
 ////        systemint.add(fileclass);
         LinkedList.printList(database.getAll());

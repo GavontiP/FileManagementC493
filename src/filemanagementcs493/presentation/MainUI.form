@@ -105,64 +105,14 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="arrivalDateLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="animalTypeLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="sterilizedLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="addBtn" alignment="0" min="-2" pref="84" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="modifyBtn" min="-2" pref="84" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                      <Component id="deleteBtn" min="-2" pref="84" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="exitBtn" min="-2" pref="84" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="dayTxtFld" min="-2" pref="69" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                                              <Component id="dayLbl" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="monthTxtFld" min="-2" pref="69" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="monthLbl" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="yearTxtFld" min="-2" pref="69" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="clearBtn" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                              <Component id="yearLbl" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="typeCombo" max="32767" attributes="0"/>
-                                  <Component id="sterilizedCombo" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="addBtn" min="-2" pref="84" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="modifyBtn" min="-2" pref="84" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="deleteBtn" min="-2" pref="84" max="-2" attributes="0"/>
+                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                      <Component id="exitBtn" min="-2" pref="84" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -176,17 +126,20 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jScrollPane1" min="-2" pref="375" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="titlelbl" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
               </Group>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="182" max="-2" attributes="0"/>
-              <Component id="titlelbl" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="375" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -195,8 +148,8 @@
           <Group type="102" attributes="0">
               <Component id="titlelbl" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="97" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="111" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="nameTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="nameLbl" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -205,30 +158,6 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="breedTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="breedLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="dayLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="monthLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="yearLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="arrivalDateLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="clearBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="monthTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="yearTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="dayTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="animalTypeLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="typeCombo" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="sterilizedLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="sterilizedCombo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -255,9 +184,9 @@
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="5" rowCount="5">
                 <Column editable="true" title="Type" type="java.lang.Object"/>
-                <Column editable="true" title="Breed" type="java.lang.Object"/>
+                <Column editable="true" title="Location" type="java.lang.Object"/>
                 <Column editable="true" title="Name" type="java.lang.Object"/>
-                <Column editable="true" title="Sterilized" type="java.lang.Object"/>
+                <Column editable="true" title="Size" type="java.lang.Object"/>
                 <Column editable="true" title="Arrived" type="java.lang.Object"/>
               </Table>
             </Property>
@@ -304,72 +233,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="breedLbl">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Breed"/>
+        <Property name="text" type="java.lang.String" value="Path/Location"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="nameLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="Name"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="arrivalDateLbl">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Arrival Date"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="dayTxtFld">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="DD"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dayTxtFldActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="clearBtn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Clear"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearBtnActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="animalTypeLbl">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Type of Animal"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="typeCombo">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="Dog"/>
-            <StringItem index="1" value="Cat"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="typeComboActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="sterilizedCombo">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="Yes"/>
-            <StringItem index="1" value="No"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JLabel" name="sterilizedLbl">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Sprayed/Neutred"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="addBtn">
@@ -409,39 +278,8 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="3"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Regis ResQ"/>
+        <Property name="text" type="java.lang.String" value="File Management"/>
         <Property name="verticalAlignment" type="int" value="3"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="monthTxtFld">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="MM"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="monthTxtFldActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="yearTxtFld">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="YYYY"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="yearTxtFldActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="dayLbl">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Day"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="monthLbl">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Month"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="yearLbl">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Year"/>
       </Properties>
     </Component>
   </SubComponents>
