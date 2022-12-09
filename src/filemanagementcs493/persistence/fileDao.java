@@ -37,14 +37,12 @@ public class fileDao implements Dao {
             // Iterate through all rows and add the values from each into the animals
             // ArrayList
             while (result.next()) {
-
+//System.out.println(result.getString(3)+ result.getString(4)+result.getString(5)+ result.getString(1));
                 if (result.getString(2).equals("file")) {
-                    Filess file = new Filess(result.getString(1), result.getString(5), result.getString(4),
-                            result.getString(3));
+                    Filess file = new Filess(result.getString(3), result.getString(4),result.getString(5),result.getString(1));
                     filelist.insert(filelist, file);
                 } else {
-                    Directory file = new Directory(result.getString(1), result.getString(5), result.getString(4),
-                            result.getString(3));
+                    Directory file = new Directory(result.getString(3), result.getString(4),result.getString(5),result.getString(1));
                     filelist.insert(filelist, file);
                 }
 
@@ -69,6 +67,7 @@ public class fileDao implements Dao {
     @Override
     public boolean add(source item) {
         boolean succesful = true;
+        System.out.println(item.toString());
         String query = " insert into " + tableName + " (type, name, location, size, created)"
                 + " values (?, ?, ?, ?, ?)";
         try {

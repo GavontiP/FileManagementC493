@@ -2,6 +2,7 @@ package filemanagementcs493.presentation;
 
 import javax.swing.table.AbstractTableModel;
 import filemanagementcs493.utils.*; // Needed for the domain classes
+import java.util.Arrays;
 
 public class FileTableModel extends AbstractTableModel {
     private LinkedList filelist = new LinkedList();
@@ -30,7 +31,6 @@ public class FileTableModel extends AbstractTableModel {
     // done?
     @Override
     public Object getValueAt(int row, int column) {
-
         String temp[] = filelist.findAtPosition(filelist, row).toString().split(",");
         String[] arr = new String[temp.length];
         for (int i = 0; i < 5; i++) {

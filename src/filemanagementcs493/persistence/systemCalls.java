@@ -33,7 +33,7 @@ public class systemCalls implements SystemInterface {
 
     @Override
     public LinkedList getAll(File folder) {
-
+        LinkedList filedlist = new LinkedList();
         try {
             File[] files = folder.listFiles();
 
@@ -42,16 +42,16 @@ public class systemCalls implements SystemInterface {
 
                 // Checking of file inside directory
                 if (file.isDirectory()) {
-                    Directory dir = new Directory(file.getName(), file.getCanonicalPath(),
-                            String.format("%,d", file.length()).replace(",", ""), getFileCreationTime(file).toString());
+                    Directory dir = new Directory(file.getCanonicalPath(), String.format("%,d", file.length()).replace(",", "") , getFileCreationTime(file).toString(),file.getName());
                     database.add(dir);
+                    filedlist.insert(filedlist, dir);
 
                 }
                 // // Simply get the path
                 else if (file.isFile()) {
-                    Filess filess = new Filess(file.getName(), file.getCanonicalPath(),
-                            String.format("%,d", file.length()).replace(",", ""), getFileCreationTime(file).toString());
+                    Filess filess = new Filess(file.getCanonicalPath(), String.format("%,d", file.length()).replace(",", "") , getFileCreationTime(file).toString(),file.getName());
                     database.add(filess);
+                    filedlist.insert(filedlist, filess);
                 }
             }
         }
@@ -61,7 +61,7 @@ public class systemCalls implements SystemInterface {
             System.out.println(e);
         }
 
-        return filelist;
+        return filedlist;
     }
 
     @Override

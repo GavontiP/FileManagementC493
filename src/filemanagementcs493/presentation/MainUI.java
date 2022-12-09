@@ -46,11 +46,6 @@ public class MainUI extends javax.swing.JFrame {
     public MainUI() {
         initComponents();
         filesTbl.setAutoCreateRowSorter(true);
-        // filesTbl.getColumnModel().getColumn(0).setPreferredWidth(5);
-        // filesTbl.getColumnModel().getColumn(2).setPreferredWidth(250);
-        // filesTbl.getColumnModel().getColumn(3).setPreferredWidth(5);
-        // filesTbl.getColumnModel().getColumn(4).setPreferredWidth(25);
-        // filesTbl.getColumnModel().getColumn(1).setPreferredWidth(25);
         nameLbl.setDisplayedMnemonic('n');
         nameLbl.setLabelFor(nameTxtFld);
         pathLbl.setDisplayedMnemonic('b');
@@ -63,47 +58,6 @@ public class MainUI extends javax.swing.JFrame {
         fileMenuItem.setMnemonic('f');
         clearBtn.setMnemonic('c');
         pathTxtField.setText(state.currLocation);
-        //
-        // // create new month focus listener
-        // monthTxtFld.addFocusListener(new FocusListener() {
-        // @Override
-        // public void focusGained(FocusEvent e) {
-        // if (monthTxtFld.getText().equals("MM")) // Default text is "MM"
-        // monthTxtFld.selectAll(); // Select all text
-        // }
-        //
-        // @Override
-        // public void focusLost(FocusEvent arg0) {
-        // // Do nothing when focus is lost
-        // }
-        // });
-        // // create new day focus listener
-        // dayTxtFld.addFocusListener(new FocusListener() {
-        // @Override
-        // public void focusGained(FocusEvent e) {
-        // if (dayTxtFld.getText().equals("DD")) // Default text is "MM"
-        // dayTxtFld.selectAll(); // Select all text
-        // }
-        //
-        // @Override
-        // public void focusLost(FocusEvent arg0) {
-        // // Do nothing when focus is lost
-        // }
-        // });
-
-        // // create new year focus listener
-        // yearTxtFld.addFocusListener(new FocusListener() {
-        // @Override
-        // public void focusGained(FocusEvent e) {
-        // if (yearTxtFld.getText().equals("YYYY")) // Default text is "MM"
-        // yearTxtFld.selectAll(); // Select all text
-        // }
-        //
-        // @Override
-        // public void focusLost(FocusEvent arg0) {
-        // // Do nothing when focus is lost
-        // }
-        // });
         LinkedList<source> term = database.getAll();
         term.printList(term);
         int temp = term.getSize();
@@ -111,7 +65,7 @@ public class MainUI extends javax.swing.JFrame {
             source item = term.findAtPosition(term, i);
             if (item.getType().equals("file")) {
                 System.out.println(item.toString());
-                Filess file = new Filess(item.getName(), item.getCreated(), item.getSize(), item.getLocation());
+                Filess file = new Filess(item.getLocation(), item.getSize(), item.getCreated(), item.getName());
                 filelist.insert(filelist, file);
                 model.setFiles(filelist);
                 filesTbl.setModel(model);
@@ -121,7 +75,7 @@ public class MainUI extends javax.swing.JFrame {
 
             } else {
                 System.out.println(item.toString());
-                Directory file = new Directory(item.getName(), item.getCreated(), item.getSize(), item.getLocation());
+                Directory file = new Directory(item.getLocation(), item.getSize(), item.getCreated(), item.getName());
                 filelist.insert(filelist, file);
                 model.setFiles(filelist);
                 filesTbl.setModel(model);
@@ -134,9 +88,6 @@ public class MainUI extends javax.swing.JFrame {
         filesTbl.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                // FileTableModel model = new FileTableModel();
-                // LinkedList<Filess> filelisttemp = new LinkedList();
-                // filelisttemp.printList(filelisttemp);
                 int row = filesTbl.rowAtPoint(evt.getPoint());
                 if (row >= 0) {
                     selectedRow = row;
@@ -432,40 +383,24 @@ public class MainUI extends javax.swing.JFrame {
 
     private void filesTblMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_filesTblMouseClicked
         int row = filesTbl.rowAtPoint(evt.getPoint());
-        System.out.println("Mouse event, clickCount = " + evt.getClickCount());
-
-        if (evt.getClickCount() == 1) {
-            System.out.println("Single Click");
-        }
-
         if (evt.getClickCount() == 2) {
-            System.out.println("Double Click");
             state.currLocation = model.getValueAt(row, 2).toString();
-            System.out.println(state.currLocation);
             database.deleteAll();
             if (model.getValueAt(row, 0).equals("directory")) {
-                Directory fileclass = new Directory("help", state.currLocation, "27.3GB", "created");
-                File filetest = new File(state.currLocation);
-                filelist = systemint.getAll(filetest);
-                LinkedList<source> term = database.getAll();
-                term.printList(term);
-                int temp = term.getSize();
-                for (int i = 0; i < temp; i++) {
-                    source item = term.findAtPosition(term, i);
-                    if (item.getType().equals("file")) {
-                        System.out.println(item.toString());
-                        Filess file = new Filess(item.getName(), item.getCreated(), item.getSize(), item.getLocation());
-                        filelist.insert(filelist, file);
-
-                    } else {
-                        System.out.println(item.toString());
-                        Directory file = new Directory(item.getName(), item.getCreated(), item.getSize(),
-                                item.getLocation());
-                        filelist.insert(filelist, file);
-                    }
-                }
-            } else {
-                System.out.println("this is a file");
+            File filetest = new File(state.currLocation);
+            filelist = systemint.getAll(filetest);
+            System.out.println("Main UI: ");
+            filelist.printList(filelist);
+            selectedRow = -1;
+            model.setFiles(filelist);
+            model.fireTableDataChanged();
+            filesTbl.setColumnSelectionAllowed(false);
+            filesTbl.setRowSelectionAllowed(true);
+            typeComboBox.setSelectedIndex(0);
+            nameTxtFld.setText("");
+            pathTxtField.setText(state.currLocation);
+            }
+            else {
                 try {
                     // constructor of file class having file as argument
                     File file = new File(model.getValueAt(row, 2).toString());
@@ -480,17 +415,8 @@ public class MainUI extends javax.swing.JFrame {
                 } catch (IOException e) {
                     System.out.println(e);
                 }
-            }
 
-            selectedRow = -1;
-            model.setFiles(filelist);
-            model.fireTableDataChanged();
-            typeComboBox.setSelectedIndex(0);
-            nameTxtFld.setText("");
-            pathTxtField.setText(state.currLocation);
-
-        }
-
+            }}
     }// GEN-LAST:event_filesTblMouseClicked
 
     private void modifyBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_modifyBtnActionPerformed
