@@ -19,9 +19,11 @@ import filemanagementcs493.state;
 import java.awt.GridLayout;
 import static java.nio.file.Files.delete;
 import filemanagementcs493.utils.*;
+import java.awt.Desktop;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -464,6 +466,20 @@ public class MainUI extends javax.swing.JFrame {
                 }
             } else {
                 System.out.println("this is a file");
+                try {
+                    // constructor of file class having file as argument
+                    File file = new File(model.getValueAt(row, 2).toString());
+                    if (!Desktop.isDesktopSupported())// check if Desktop is supported by Platform or not
+                    {
+                        System.out.println("not supported");
+                        return;
+                    }
+                    Desktop desktop = Desktop.getDesktop();
+                    if (file.exists()) // checks file exists or not
+                        desktop.open(file); // opens the specified file
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
             }
 
             selectedRow = -1;

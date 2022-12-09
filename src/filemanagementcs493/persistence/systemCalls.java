@@ -61,7 +61,7 @@ public class systemCalls implements SystemInterface {
             System.out.println(e);
         }
 
-        return database.getAll();
+        return filelist;
     }
 
     @Override
