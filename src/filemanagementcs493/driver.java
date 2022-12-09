@@ -8,7 +8,7 @@ package filemanagementcs493;
 import filemanagementcs493.persistence.*;
 import filemanagementcs493.utils.*;
 import filemanagementcs493.application.*;
-import java.util.ArrayList;
+import java.io.File;
 
 /**
  *
@@ -20,14 +20,14 @@ public class driver {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ArrayList<Object> t = new ArrayList<>();
-        LinkedList filelist = new LinkedList();
-        fileDao database = new fileDao();
+        // LinkedList<Filess> list = new LinkedList();
         systemCalls systemint = new systemCalls();
-        Filess fileclass = new Filess("help",state.currLocation, "27.3GB", "created");
-        systemint.getAll(fileclass);
-//        database.add(fileclass);
-//        LinkedList.printList(database.getAll());
+        // Directory fileclass = new Directory("help",state.currLocation, "27.3GB",
+        // "created");
+        File file = new File(state.currLocation);
+        // System.out.println(fileclass.toString());
+        systemint.getAll(file);
+
     }
 
 }

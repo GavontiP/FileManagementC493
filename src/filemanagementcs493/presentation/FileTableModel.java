@@ -30,14 +30,13 @@ public class FileTableModel extends AbstractTableModel {
     // done?
     @Override
     public Object getValueAt(int row, int column) {
-        try{
-        String temp[] = filelist.findAtPosition(filelist, row).split(" ");
-        return temp[column];
-        
-        }catch(ArrayIndexOutOfBoundsException e){
-            String temp[] = filelist.findAtPosition(filelist, 0).split(" ");
-            return temp[column];
+
+        String temp[] = filelist.findAtPosition(filelist, row).toString().split(",");
+        String[] arr = new String[temp.length];
+        for (int i = 0; i < 5; i++) {
+            arr[i] = temp[i].split("\\=")[1];
         }
+        return arr[column];
     }
 
     // done
@@ -48,7 +47,7 @@ public class FileTableModel extends AbstractTableModel {
     }
 
     // set
-    public void setAnimals(LinkedList filelist) {
+    public void setFiles(LinkedList filelist) {
         this.filelist = filelist;
     }
 

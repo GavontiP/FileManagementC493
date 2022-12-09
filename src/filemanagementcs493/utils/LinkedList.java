@@ -1,56 +1,53 @@
 package filemanagementcs493.utils;
 // Java program to implement
+
 // a Singly Linked List
 
-import java.util.ArrayList;
-public class LinkedList<Filess> {
+import filemanagementcs493.application.source;
+import filemanagementcs493.state;
+
+public class LinkedList<source> {
 
 	Node head; // head of list
-        public int size = 0;
+	public int size = 0;
 
-    public int getSize() {
-        return this.size;
-    }
+	public int getSize() {
+		return this.size;
+	}
 
-    public Node getHead() {
-        return head;
-    }
+	public Node getHead() {
+		return head;
+	}
 
-    public void setHead(Node head) {
-        this.head = head;
-    }
+	public void setHead(Node head) {
+		this.head = head;
+	}
 
 	// Linked list Node.
-	// Node is a static nested class
-	// so main() can access it
 	public class Node {
 
-		String data;
+		source data;
 		Node next;
 
 		// Constructor
-		Node(String d)
-		{
+		Node(source d) {
 			data = d;
 			next = null;
 		}
 	}
 
 	// Method to insert a new node
-	public  LinkedList insert(LinkedList list,
-									Object item)
-	{
+	public LinkedList insert(LinkedList list, source item) {
 		// Create a new node with given data
-		Node new_node = new Node(item.toString());
+		Node new_node = new Node(item);
 		new_node.next = null;
-//                System.out.println(item.toString());
+		// System.out.println(item.toString());
 
 		// If the Linked List is empty,
 		// then make the new node as head
 		if (list.head == null) {
 			list.head = new_node;
-		}
-		else {
+		} else {
 			// Else traverse till the last node
 			// and insert the new_node there
 			Node last = list.head;
@@ -62,19 +59,20 @@ public class LinkedList<Filess> {
 			last.next = new_node;
 		}
 
-		// Return the list by head
-                System.out.println("inserted: " + item.toString());
-                size++;
+		// // Return the list by head
+		// System.out.println("inserted: " + item.toString());
+		size++;
 		return list;
 	}
 
 	// Method to print the LinkedList.
-	public void printList(LinkedList list)
-	{
+	public void printList(LinkedList list) {
 		Node currNode = list.head;
 
-		System.out.print("LinkedList: ");
+		if (currNode == null)
+			System.out.println("LinkedList is empty.");
 
+		System.out.print("LinkedList: ");
 		// Traverse through the LinkedList
 		while (currNode != null) {
 			// Print the data at current node
@@ -82,37 +80,13 @@ public class LinkedList<Filess> {
 
 			// Go to next node
 			currNode = currNode.next;
-                        System.out.println();
+			System.out.println();
 		}
 
-	}
-        
-        // Method to print the LinkedList.
-	public ArrayList putInArr(LinkedList list)
-	{
-            ArrayList<Object> t = new ArrayList<>();
-            int counter = 0;
-		Node currNode = list.head;
-
-		System.out.print("LinkedList: ");
-
-		// Traverse through the LinkedList
-		while (currNode != null) {
-			// Print the data at current node
-			t.add(currNode.data);
-
-			// Go to next node
-			currNode = currNode.next;
-                        System.out.println();
-                        counter++;
-		}
-                return t;
 	}
 
 	// Method to delete a node in the LinkedList by POSITION
-	public LinkedList
-	deleteAtPosition(LinkedList list, int index)
-	{
+	public LinkedList deleteAtPosition(LinkedList list, int index) {
 		// Store head node
 		Node currNode = list.head, prev = null;
 
@@ -126,7 +100,7 @@ public class LinkedList<Filess> {
 
 			// Display the message
 			System.out.println(
-				index + " position element deleted");
+					index + " position element deleted");
 
 			// Return the updated List
 			return list;
@@ -152,10 +126,9 @@ public class LinkedList<Filess> {
 
 				// Display the message
 				System.out.println(
-					index + " position element deleted");
+						index + " position element deleted");
 				break;
-			}
-			else {
+			} else {
 				// If current position is not the index
 				// continue to next node
 				prev = currNode;
@@ -175,18 +148,16 @@ public class LinkedList<Filess> {
 		if (currNode == null) {
 			// Display the message
 			System.out.println(
-				index + " position element not found");
+					index + " position element not found");
 		}
-                size--;
+		size--;
 		// return the List
 		return list;
 	}
-        
-        // Method to delete a node in the LinkedList by POSITION
-	public String
-	findAtPosition(LinkedList list, int index)
-	{
-            String returnValue = ""; 
+
+	// Method to find a node in the LinkedList by POSITION
+	public source findAtPosition(LinkedList list, int index) {
+		source returnValue = null;
 		// Store head node
 		Node currNode = list.head, prev = null;
 
@@ -195,11 +166,10 @@ public class LinkedList<Filess> {
 		// If index is 0, then head node itself is what we want
 
 		if (index == 0 && currNode != null) {
-			returnValue = list.head.data;
-
-			// Display the message
-			System.out.println(
-				index + " position element found");
+			returnValue = (source) list.head.data;
+			// // Display the message
+			// System.out.println(
+			// index + " position element found");
 
 			// Return the updated List
 			return returnValue;
@@ -222,13 +192,12 @@ public class LinkedList<Filess> {
 				// Since the currNode is the required
 				// position Unlink currNode from linked list
 				returnValue = prev.next.data;
-
-				// Display the message
-				System.out.println(
-					 index + " position element found");
-				break;
-			}
-			else {
+				//
+				// // Display the message
+				// System.out.println(
+				// index + " position element found");
+				return returnValue;
+			} else {
 				// If current position is not the index
 				// continue to next node
 				prev = currNode;
@@ -247,13 +216,13 @@ public class LinkedList<Filess> {
 		// In this case, the currNode should be null
 		if (currNode == null) {
 			// Display the message
-			System.out.println(
-			index + " position element not found");
+			// System.out.println(
+			// index + " position element not found");
+
 		}
 
 		// return the List
 		return returnValue;
 	}
-
 
 }

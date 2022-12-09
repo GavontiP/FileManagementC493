@@ -5,95 +5,100 @@
  */
 package filemanagementcs493.persistence;
 
+import filemanagementcs493.application.Directory;
 import filemanagementcs493.application.Filess;
+import filemanagementcs493.application.source;
 import filemanagementcs493.utils.LinkedList;
 import static filemanagementcs493.utils.utils.*;
+import java.io.File; // Import the File class
+import java.io.IOException; // Import the IOException class to handle errors
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Comparator;
+import org.apache.commons.io.FileUtils;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author gavon
  */
-public class systemCalls implements SystemInterface{
+public class systemCalls implements SystemInterface {
     private final LinkedList filelist = new LinkedList();
     private final fileDao database = new fileDao();
 
-
-
     public systemCalls() {
-        
-    }           
+
+    }
 
     @Override
-    public LinkedList getAll(Object item)
-    {
-         String itemDeconstructed[];
-        itemDeconstructed = item.toString().split(" ");
-        int counter = 0;
- 
+    public LinkedList getAll(File folder) {
+
         try {
-            File currentDir = new File(itemDeconstructed[2]);
-            File[] files = currentDir.listFiles();
- 
+            File[] files = folder.listFiles();
+
             // For-each loop for iteration
             for (File file : files) {
- 
+
                 // Checking of file inside directory
                 if (file.isDirectory()) {
- 
-// Display directories inside directory
-        Filess filess = new Filess(file.getName(), file.getCanonicalPath(),String.format("%,d", file.length()), getFileCreationTime(file).toString());
-        database.add(filess);
+                    Directory dir = new Directory(file.getName(), file.getCanonicalPath(),
+                            String.format("%,d", file.length()).replace(",", ""), getFileCreationTime(file).toString());
+                    database.add(dir);
+
                 }
-//              // Simply get the path
-                else {
-        Filess filess = new Filess(file.getName(), file.getCanonicalPath(),String.format("%,d", file.length()),getFileCreationTime(file).toString());
-        database.add(filess);
-        counter++;
+                // // Simply get the path
+                else if (file.isFile()) {
+                    Filess filess = new Filess(file.getName(), file.getCanonicalPath(),
+                            String.format("%,d", file.length()).replace(",", ""), getFileCreationTime(file).toString());
+                    database.add(filess);
                 }
             }
         }
- 
+
         // if any exceptions occurs printStackTrace
         catch (IOException | NullPointerException e) {
-                System.out.println(e);
+            System.out.println(e);
         }
 
-        return filelist;
+        return database.getAll();
     }
-    
 
     @Override
-    public boolean add(Object item) {
-    boolean value = false;
-    File theDir = new File("C:\\Users\\gavon\\help");
-    if (!theDir.exists()){
-        value = theDir.mkdir();
-        Filess filess = new Filess("help", "C:\\Users\\gavon\\help",  getFileSizeBytes(theDir),getFileCreationTime(theDir).toString());
-        database.add(filess);
-    }        System.out.println(String.valueOf(theDir.length()));
-    
+    public boolean add(source item) {
+        boolean value = false;
+        File theDir = new File(item.getLocation());
+        // System.out.println(item.toString());
+        if (!theDir.exists()) {
+
+            if (item.getType().equals("file")) {
+                try {
+                    // System.out.println(theDir.toString());
+                    theDir.createNewFile();
+                } catch (IOException ex) {
+                    Logger.getLogger(systemCalls.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                value = theDir.mkdir();
+            }
+        }
         return value;
     }
 
     @Override
-    public boolean update(Object item) {
-       // Create an object of the File class
+    public boolean update(source item) {
+        // Create an object of the File class
         // Replace the file path with path of the directory
         File file = new File("/home/mayur/Folder/GFG.java");
-  
+
         // Create an object of the File class
         // Replace the file path with path of the directory
         File rename = new File("/home/mayur/Folder/HelloWorld.java");
-  
+
         // store the return value of renameTo() method in
         // flag
         boolean flag = file.renameTo(rename);
-  
+
         // if renameTo() return true then if block is
         // executed
         if (flag == true) {
@@ -109,31 +114,32 @@ public class systemCalls implements SystemInterface{
     }
 
     @Override
-    public boolean delete(Object item) {
-            File theDir = new File("C:\\Users\\gavon\\help");
-            Filess filess = new Filess("help", "C:\\Users\\gavon\\help", "27.3GB", "created");
-            // function to delete subdirectories and files
+    public boolean delete(source item) {
+        File theDir = new File(item.getLocation());
+        // function to delete subdirectories and files
         // store all the paths of files and folders present
         // inside directory
-        try{
-            for (File subfile : theDir.listFiles()) {
-  
-            // if it is a subfolder,e.g Rohan and Ritik,
-            // recursiley call function to empty subfolder
-            if (subfile.isDirectory()) {
-                delete(subfile);
+        if (!("file".equals(item.getType()))) {
+            try {
+                FileUtils.deleteDirectory(theDir);
+            } catch (NullPointerException e) {
+                return theDir.delete();
+            } catch (IOException ex) {
+                Logger.getLogger(systemCalls.class.getName()).log(Level.SEVERE, null, ex);
             }
-  
-            // delete files and empty subfolders
-            subfile.delete();
-            }
-            database.delete(filess);
-        }catch(NullPointerException e){
-                 return theDir.delete();
+        } else {
+            try {
+                if (theDir.delete()) {
+                    System.out.println("Deleted the file: " + theDir.getName());
+                } else {
+                    System.out.println("Failed to delete the file.");
                 }
-    return theDir.delete();
-    
+            } catch (NullPointerException e) {
+                return theDir.delete();
+            }
+        }
+        return theDir.delete();
+
     }
-    
-   
+
 }

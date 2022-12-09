@@ -5,7 +5,9 @@
  */
 package filemanagementcs493.persistence;
 
+import filemanagementcs493.application.source;
 import filemanagementcs493.utils.LinkedList;
+import java.io.File;
 
 /**
  *
@@ -14,11 +16,11 @@ import filemanagementcs493.utils.LinkedList;
  */
 public interface SystemInterface<T> {
 
-    public LinkedList getAll(T item);
+    public LinkedList getAll(File item);
 
-    public boolean add(T item);
+    public boolean add(source item);
 
-    public boolean update(T item);
+    public boolean update(source item);
 
-    public boolean delete(T item);
+    public boolean delete(source item);
 }

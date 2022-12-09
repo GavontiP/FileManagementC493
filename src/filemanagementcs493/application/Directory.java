@@ -1,10 +1,6 @@
 package filemanagementcs493.application;
 
-import java.util.ArrayList;
-import java.sql.*; // Needed for DB server operations
-
-
-public class Directory extends crud {
+public class Directory extends source {
 
     public Directory() {
         super(null, null, null, null);
