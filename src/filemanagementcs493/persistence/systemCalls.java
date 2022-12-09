@@ -42,14 +42,18 @@ public class systemCalls implements SystemInterface {
 
                 // Checking of file inside directory
                 if (file.isDirectory()) {
-                    Directory dir = new Directory(file.getCanonicalPath(), String.format("%,d", file.length()).replace(",", "") , getFileCreationTime(file).toString(),file.getName());
+                    Directory dir = new Directory(file.getCanonicalPath(),
+                            String.format("%,d", file.length()).replace(",", ""), getFileCreationTime(file).toString(),
+                            file.getName());
                     database.add(dir);
                     filedlist.insert(filedlist, dir);
 
                 }
                 // // Simply get the path
                 else if (file.isFile()) {
-                    Filess filess = new Filess(file.getCanonicalPath(), String.format("%,d", file.length()).replace(",", "") , getFileCreationTime(file).toString(),file.getName());
+                    Filess filess = new Filess(file.getCanonicalPath(),
+                            String.format("%,d", file.length()).replace(",", ""), getFileCreationTime(file).toString(),
+                            file.getName());
                     database.add(filess);
                     filedlist.insert(filedlist, filess);
                 }
@@ -66,19 +70,19 @@ public class systemCalls implements SystemInterface {
 
     @Override
     public boolean add(source item) {
-        boolean value = false;
+        boolean value = true;
         File theDir = new File(item.getLocation());
-        // System.out.println(item.toString());
         if (!theDir.exists()) {
-
             if (item.getType().equals("file")) {
                 try {
-                    // System.out.println(theDir.toString());
+                    System.out.println(theDir.toString());
                     theDir.createNewFile();
                 } catch (IOException ex) {
+                    value = false;
                     Logger.getLogger(systemCalls.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
+                System.out.println(theDir.toString());
                 value = theDir.mkdir();
             }
         }
