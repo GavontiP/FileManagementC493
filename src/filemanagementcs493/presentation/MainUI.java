@@ -5,29 +5,19 @@
  */
 package filemanagementcs493.presentation;
 
-import filemanagementcs493.application.Directory;
-import filemanagementcs493.application.Filess;
-import filemanagementcs493.application.source;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import filemanagementcs493.application.DirectoryClass;
+import filemanagementcs493.application.FileClass;
+import filemanagementcs493.application.ObjectInterface;
 import javax.swing.JOptionPane;
 import filemanagementcs493.persistence.fileDao;
 import filemanagementcs493.persistence.systemCalls;
 import filemanagementcs493.state;
-import java.awt.GridLayout;
-import static java.nio.file.Files.delete;
 import filemanagementcs493.utils.*;
 import java.awt.Desktop;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import javax.swing.JFrame;
 
 /**
  *
@@ -35,7 +25,7 @@ import javax.swing.JFrame;
  */
 public class MainUI extends javax.swing.JFrame {
     private int selectedRow = 0;
-    LinkedList<source> filelist = new LinkedList();
+    LinkedList<ObjectInterface> filelist = new LinkedList();
     fileDao database = new fileDao();
     systemCalls systemint = new systemCalls();
     private FileTableModel model = new FileTableModel();
@@ -57,15 +47,17 @@ public class MainUI extends javax.swing.JFrame {
         exitBtn.setMnemonic('e');
         fileMenuItem.setMnemonic('f');
         clearBtn.setMnemonic('c');
+        backBtn.setMnemonic('k');
         pathTxtField.setText(state.currLocation);
-        LinkedList<source> term = database.getAll();
+        File filetwo = new File(state.currLocation);
+        systemint.getAll(filetwo);
+        LinkedList<ObjectInterface> term = database.getAll();
         term.printList(term);
         int temp = term.getSize();
         for (int i = 0; i < temp; i++) {
-            source item = term.findAtPosition(term, i);
+            ObjectInterface item = term.findAtPosition(term, i);
             if (item.getType().equals("file")) {
-                System.out.println(item.toString());
-                Filess file = new Filess(item.getLocation(), item.getSize(), item.getCreated(), item.getName());
+                FileClass file = new FileClass(item.getLocation(), item.getSize(), item.getCreated(), item.getName());
                 filelist.insert(filelist, file);
                 model.setFiles(filelist);
                 filesTbl.setModel(model);
@@ -74,8 +66,8 @@ public class MainUI extends javax.swing.JFrame {
                 filesTbl.setRowSelectionAllowed(true);
 
             } else {
-                System.out.println(item.toString());
-                Directory file = new Directory(item.getLocation(), item.getSize(), item.getCreated(), item.getName());
+                DirectoryClass file = new DirectoryClass(item.getLocation(), item.getSize(), item.getCreated(),
+                        item.getName());
                 filelist.insert(filelist, file);
                 model.setFiles(filelist);
                 filesTbl.setModel(model);
@@ -113,6 +105,8 @@ public class MainUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -136,6 +130,8 @@ public class MainUI extends javax.swing.JFrame {
         typeComboBox = new javax.swing.JComboBox<>();
         typeLbl = new javax.swing.JLabel();
         backBtn = new javax.swing.JButton();
+        searchTxtFld = new javax.swing.JTextField();
+        searchBtn = new javax.swing.JButton();
         fileMenu = new javax.swing.JMenuBar();
         fileMenuItem = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
@@ -263,12 +259,25 @@ public class MainUI extends javax.swing.JFrame {
 
         typeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "directory", "file" }));
 
-        typeLbl.setText("Name");
+        typeLbl.setText("Type");
 
         backBtn.setText("Back");
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backBtnActionPerformed(evt);
+            }
+        });
+
+        searchTxtFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchTxtFldActionPerformed(evt);
+            }
+        });
+
+        searchBtn.setText("Search");
+        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBtnActionPerformed(evt);
             }
         });
 
@@ -299,6 +308,34 @@ public class MainUI extends javax.swing.JFrame {
                                                 .addGroup(layout
                                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                         .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(nameLbl)
+                                                                        .addComponent(typeLbl))
+                                                                .addPreferredGap(
+                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                        Short.MAX_VALUE)
+                                                                .addGroup(layout.createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(typeComboBox,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                .addComponent(nameTxtFld,
+                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                        312,
+                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addGap(18, 18, 18)
+                                                                                .addComponent(pathLbl)
+                                                                                .addGap(34, 34, 34)
+                                                                                .addComponent(pathTxtField,
+                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                        313,
+                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout
+                                                                .createSequentialGroup()
                                                                 .addComponent(addBtn,
                                                                         javax.swing.GroupLayout.PREFERRED_SIZE, 84,
                                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -321,51 +358,37 @@ public class MainUI extends javax.swing.JFrame {
                                                                 .addPreferredGap(
                                                                         javax.swing.LayoutStyle.ComponentPlacement.RELATED,
                                                                         javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        Short.MAX_VALUE))
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addGroup(layout.createParallelGroup(
-                                                                        javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(nameLbl)
-                                                                        .addComponent(typeLbl))
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                                        39, Short.MAX_VALUE)
-                                                                .addGroup(layout.createParallelGroup(
-                                                                        javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(typeComboBox,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(nameTxtFld,
-                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                        312,
-                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addGap(18, 18, 18)
-                                                                                .addComponent(pathLbl)
-                                                                                .addGap(34, 34, 34)
-                                                                                .addComponent(pathTxtField,
-                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                        313,
-                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                                        Short.MAX_VALUE)))
                                                 .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 65,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(19, 19, 19)))
+                                                .addGap(19, 19, 19))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(searchTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 821,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE)))
                                 .addContainerGap()));
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
+                                .addGap(27, 27, 27)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(searchTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(searchBtn))
+                                .addGap(24, 24, 24)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(typeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(typeLbl))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29,
-                                        Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(pathTxtField, javax.swing.GroupLayout.PREFERRED_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -376,8 +399,8 @@ public class MainUI extends javax.swing.JFrame {
                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(nameLbl))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17,
-                                        Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(addBtn)
                                         .addComponent(modifyBtn)
@@ -390,6 +413,17 @@ public class MainUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_searchBtnActionPerformed
+        String searchTerm = searchTxtFld.getText();
+        File fileToFind = new File(state.currLocation);
+        systemint.findFile(searchTerm, fileToFind);
+        searchTxtFld.setText("");
+    }// GEN-LAST:event_searchBtnActionPerformed
+
+    private void searchTxtFldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_searchTxtFldActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_searchTxtFldActionPerformed
+
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_backBtnActionPerformed
         String temp[] = state.currLocation.split("\\\\");
         String backLocation = "";
@@ -397,21 +431,22 @@ public class MainUI extends javax.swing.JFrame {
             backLocation += temp[i] + "\\";
 
         }
-        state.currLocation = backLocation;
-        System.out.println(state.currLocation);
-        database.deleteAll();
-        File filetest = new File(state.currLocation);
-        filelist = systemint.getAll(filetest);
-        System.out.println("Main UI: ");
-        filelist.printList(filelist);
-        selectedRow = -1;
-        model.setFiles(filelist);
-        model.fireTableDataChanged();
-        filesTbl.setColumnSelectionAllowed(false);
-        filesTbl.setRowSelectionAllowed(true);
-        typeComboBox.setSelectedIndex(0);
-        nameTxtFld.setText("");
-        pathTxtField.setText(state.currLocation);
+        if (!backLocation.equals("")) {
+            state.currLocation = backLocation;
+            System.out.println(state.currLocation);
+            database.deleteAll();
+            File filetest = new File(state.currLocation);
+            filelist = systemint.getAll(filetest);
+            filelist.printList(filelist);
+            selectedRow = -1;
+            model.setFiles(filelist);
+            model.fireTableDataChanged();
+            filesTbl.setColumnSelectionAllowed(false);
+            filesTbl.setRowSelectionAllowed(true);
+            typeComboBox.setSelectedIndex(0);
+            nameTxtFld.setText("");
+            pathTxtField.setText(state.currLocation);
+        }
     }// GEN-LAST:event_backBtnActionPerformed
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearBtnActionPerformed
@@ -425,12 +460,12 @@ public class MainUI extends javax.swing.JFrame {
     private void filesTblMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_filesTblMouseClicked
         int row = filesTbl.rowAtPoint(evt.getPoint());
         if (evt.getClickCount() == 2) {
+            System.out.println(state.currLocation);
             state.currLocation = model.getValueAt(row, 2).toString();
             database.deleteAll();
             if (model.getValueAt(row, 0).equals("directory")) {
                 File filetest = new File(state.currLocation);
                 filelist = systemint.getAll(filetest);
-                System.out.println("Main UI: ");
                 filelist.printList(filelist);
                 selectedRow = -1;
                 model.setFiles(filelist);
@@ -461,35 +496,46 @@ public class MainUI extends javax.swing.JFrame {
     }// GEN-LAST:event_filesTblMouseClicked
 
     private void modifyBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_modifyBtnActionPerformed
-        // if (selectedRow < 0)
-        // return;
-        // String name = nameTxtFld.getText();
-        // String path = pathTxtField.getText();
-        // // Filess a = new Filess(
-        // System.out.println(filelist.findAtPosition(filelist, selectedRow));
-        // String[] temp = filelist.findAtPosition(filelist, selectedRow).split(" ");
-        // Filess file = new Filess(nameTxtFld.getText(),temp[4], temp[3], temp[2]);
-        // filelist.insert(filelist, file);
-        // selectedRow = -1;
-        // model.setFiles(filelist);
-        // model.fireTableDataChanged();
-        // nameTxtFld.setText("");
-        // pathTxtField.setText("");
+        if (selectedRow < 0)
+            return;
+
+        String temp[] = state.currLocation.split("\\\\");
+        String backLocation = "";
+        for (int i = 0; i < temp.length; i++) {
+            backLocation += temp[i] + "\\";
+
+        }
+        String newName = backLocation + nameTxtFld.getText();
+        String path = pathTxtField.getText();
+        if (filelist.findAtPosition(filelist, selectedRow).getType().equals("file")) {
+            FileClass dog = new FileClass(newName, filelist.findAtPosition(filelist, selectedRow).getSize(),
+                    filelist.findAtPosition(filelist, selectedRow).getCreated(), nameTxtFld.getText());
+            systemint.update(filelist.findAtPosition(filelist, selectedRow), newName);
+            filelist.findAtPosition(filelist, selectedRow).setLocation(newName);
+            filelist.findAtPosition(filelist, selectedRow).setName(nameTxtFld.getText());
+        } else if (filelist.findAtPosition(filelist, selectedRow).getType().equals("directory")) {
+            DirectoryClass dog = new DirectoryClass(newName, filelist.findAtPosition(filelist, selectedRow).getSize(),
+                    filelist.findAtPosition(filelist, selectedRow).getCreated(), nameTxtFld.getText());
+            systemint.update(filelist.findAtPosition(filelist, selectedRow), newName);
+            filelist.findAtPosition(filelist, selectedRow).setLocation(newName);
+            filelist.findAtPosition(filelist, selectedRow).setName(nameTxtFld.getText());
+        }
+
+        selectedRow = -1;
+        model.setFiles(filelist);
+        model.fireTableDataChanged();
+        nameTxtFld.setText("");
+        pathTxtField.setText("");
+        typeComboBox.setSelectedIndex(0);
     }// GEN-LAST:event_modifyBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deleteBtnActionPerformed
         if (selectedRow < 0)
             return;
-
-        System.out.println(filelist.findAtPosition(filelist, selectedRow));
         int des;
         des = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this file?", "Deletion Confirmation",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
         if (des == 0) {
-            // this mean that the user click the yes option
-            // Put your code here that you want to execute when the user click the yes
-            // option
             try {
             } catch (ArrayIndexOutOfBoundsException e) {
                 JOptionPane.showMessageDialog(null, "Input Validation Error message");
@@ -502,11 +548,6 @@ public class MainUI extends javax.swing.JFrame {
             model.setFiles(filelist);
             model.fireTableDataChanged();
             nameTxtFld.setText("");
-        } else {
-
-            // in this else condition this is the no option
-            // in this block you can leave it empty if you don’t want to display some
-            // message to user
         }
         // GEN-LAST:event_deleteBtnActionPerformed
     }
@@ -521,10 +562,8 @@ public class MainUI extends javax.swing.JFrame {
         String path = pathTxtField.getText();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        System.out.println(dtf.format(now));
         if (type.contains("directory")) {
-            Directory dog = new Directory(path + "\\" + name, "0", dtf.format(now), name);
-            System.out.println(dog.toString());
+            DirectoryClass dog = new DirectoryClass(path + "\\" + name, "0", dtf.format(now), name);
             if (!systemint.add(dog)) {
                 JOptionPane.showMessageDialog(null, "System Error message");
             }
@@ -534,8 +573,7 @@ public class MainUI extends javax.swing.JFrame {
             }
             filelist.insert(filelist, dog);
         } else if (type.contains("file")) {
-            Filess dog = new Filess(path + "\\" + name, "0", dtf.format(now), name);
-            System.out.println(dog.toString());
+            FileClass dog = new FileClass(path + "\\" + name, "0", dtf.format(now), name);
             if (!systemint.add(dog)) {
                 JOptionPane.showMessageDialog(null, "System Error message");
             }
@@ -641,6 +679,8 @@ public class MainUI extends javax.swing.JFrame {
     private javax.swing.JTextField nameTxtFld;
     private javax.swing.JLabel pathLbl;
     private javax.swing.JTextField pathTxtField;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JTextField searchTxtFld;
     private javax.swing.JComboBox<String> typeComboBox;
     private javax.swing.JLabel typeLbl;
     // End of variables declaration//GEN-END:variables

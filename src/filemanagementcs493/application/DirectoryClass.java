@@ -1,13 +1,13 @@
 package filemanagementcs493.application;
 
-public class Directory extends source {
+public class DirectoryClass extends ObjectInterface {
 
-    public Directory() {
+    public DirectoryClass() {
         super(null, null, null, null);
         type = "directory";
     }
 
-    public Directory(String location, String size, String created, String name) {
+    public DirectoryClass(String location, String size, String created, String name) {
         super(location, size, created, name);
         type = "directory";
     }

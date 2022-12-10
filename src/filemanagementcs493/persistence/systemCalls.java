@@ -5,11 +5,12 @@
  */
 package filemanagementcs493.persistence;
 
-import filemanagementcs493.application.Directory;
-import filemanagementcs493.application.Filess;
-import filemanagementcs493.application.source;
+import filemanagementcs493.application.DirectoryClass;
+import filemanagementcs493.application.FileClass;
+import filemanagementcs493.application.ObjectInterface;
 import filemanagementcs493.utils.LinkedList;
 import static filemanagementcs493.utils.utils.*;
+import java.awt.Desktop;
 import java.io.File; // Import the File class
 import java.io.IOException; // Import the IOException class to handle errors
 import java.io.File;
@@ -42,7 +43,7 @@ public class systemCalls implements SystemInterface {
 
                 // Checking of file inside directory
                 if (file.isDirectory()) {
-                    Directory dir = new Directory(file.getCanonicalPath(),
+                    DirectoryClass dir = new DirectoryClass(file.getCanonicalPath(),
                             String.format("%,d", file.length()).replace(",", ""), getFileCreationTime(file).toString(),
                             file.getName());
                     database.add(dir);
@@ -51,7 +52,7 @@ public class systemCalls implements SystemInterface {
                 }
                 // // Simply get the path
                 else if (file.isFile()) {
-                    Filess filess = new Filess(file.getCanonicalPath(),
+                    FileClass filess = new FileClass(file.getCanonicalPath(),
                             String.format("%,d", file.length()).replace(",", ""), getFileCreationTime(file).toString(),
                             file.getName());
                     database.add(filess);
@@ -69,20 +70,18 @@ public class systemCalls implements SystemInterface {
     }
 
     @Override
-    public boolean add(source item) {
+    public boolean add(ObjectInterface item) {
         boolean value = true;
         File theDir = new File(item.getLocation());
         if (!theDir.exists()) {
             if (item.getType().equals("file")) {
                 try {
-                    System.out.println(theDir.toString());
                     theDir.createNewFile();
                 } catch (IOException ex) {
                     value = false;
                     Logger.getLogger(systemCalls.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                System.out.println(theDir.toString());
                 value = theDir.mkdir();
             }
         }
@@ -90,14 +89,13 @@ public class systemCalls implements SystemInterface {
     }
 
     @Override
-    public boolean update(source item) {
+    public boolean update(ObjectInterface item, String newName) {
         // Create an object of the File class
         // Replace the file path with path of the directory
-        File file = new File("/home/mayur/Folder/GFG.java");
-
+        File file = new File(item.getLocation());
         // Create an object of the File class
         // Replace the file path with path of the directory
-        File rename = new File("/home/mayur/Folder/HelloWorld.java");
+        File rename = new File(newName);
 
         // store the return value of renameTo() method in
         // flag
@@ -107,7 +105,6 @@ public class systemCalls implements SystemInterface {
         // executed
         if (flag == true) {
             System.out.println("File Successfully Rename");
-            database.update(item);
         }
         // if renameTo() return false then else block is
         // executed
@@ -118,32 +115,56 @@ public class systemCalls implements SystemInterface {
     }
 
     @Override
-    public boolean delete(source item) {
+    public boolean delete(ObjectInterface item) {
         File theDir = new File(item.getLocation());
-        // function to delete subdirectories and files
-        // store all the paths of files and folders present
-        // inside directory
+        boolean value = true;
         if (!("file".equals(item.getType()))) {
             try {
                 FileUtils.deleteDirectory(theDir);
             } catch (NullPointerException e) {
-                return theDir.delete();
+                value = false;
             } catch (IOException ex) {
+                value = false;
                 Logger.getLogger(systemCalls.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             try {
-                if (theDir.delete()) {
-                    System.out.println("Deleted the file: " + theDir.getName());
-                } else {
-                    System.out.println("Failed to delete the file.");
-                }
+                value = theDir.delete();
             } catch (NullPointerException e) {
                 return theDir.delete();
             }
         }
-        return theDir.delete();
+        return value;
 
+    }
+
+    public void findFile(String name, File file) {
+        System.out.println(file);
+        File[] list = file.listFiles();
+        System.out.println(list.length);
+        if (list != null)
+            for (File fil : list) {
+                System.out.println("looking...");
+                // if (fil.isDirectory())
+                // {
+                // findFile(name,fil);
+                // }
+                if (name.equalsIgnoreCase(fil.getName())) {
+                    System.out.println(fil.getParentFile());
+                    try {
+                        if (!Desktop.isDesktopSupported())// check if Desktop is supported by Platform or not
+                        {
+                            System.out.println("not supported");
+                            return;
+                        }
+                        Desktop desktop = Desktop.getDesktop();
+                        if (fil.exists()) // checks file exists or not
+                            desktop.open(fil); // opens the specified file
+                    } catch (IOException e) {
+                        System.out.println(e);
+                    }
+                }
+            }
     }
 
 }

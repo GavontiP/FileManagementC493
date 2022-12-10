@@ -5,7 +5,7 @@
  */
 package filemanagementcs493.persistence;
 
-import filemanagementcs493.application.source;
+import filemanagementcs493.application.ObjectInterface;
 import filemanagementcs493.utils.LinkedList;
 import java.io.File;
 
@@ -18,9 +18,9 @@ public interface SystemInterface<T> {
 
     public LinkedList getAll(File item);
 
-    public boolean add(source item);
+    public boolean add(ObjectInterface item);
 
-    public boolean update(source item);
+    public boolean update(ObjectInterface item, String newName);
 
-    public boolean delete(source item);
+    public boolean delete(ObjectInterface item);
 }

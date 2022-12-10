@@ -20,13 +20,9 @@ public class driver {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // LinkedList<Filess> list = new LinkedList();
-        systemCalls systemint = new systemCalls();
-        // Directory fileclass = new Directory("help",state.currLocation, "27.3GB",
-        // "created");
-        File file = new File(state.currLocation);
-        // System.out.println(fileclass.toString());
-        systemint.getAll(file);
+//        systemCalls systemint = new systemCalls();
+//        File file = new File(state.currLocation);
+//        systemint.getAll(file);
 
     }
 

@@ -3,7 +3,7 @@ package filemanagementcs493.utils;
 
 // a Singly Linked List
 
-import filemanagementcs493.application.source;
+import filemanagementcs493.application.ObjectInterface;
 import filemanagementcs493.state;
 
 public class LinkedList<source> {
@@ -41,7 +41,6 @@ public class LinkedList<source> {
 		// Create a new node with given data
 		Node new_node = new Node(item);
 		new_node.next = null;
-		// System.out.println(item.toString());
 
 		// If the Linked List is empty,
 		// then make the new node as head
@@ -58,9 +57,6 @@ public class LinkedList<source> {
 			// Insert the new_node at last node
 			last.next = new_node;
 		}
-
-		// // Return the list by head
-		// System.out.println("inserted: " + item.toString());
 		size++;
 		return list;
 	}
@@ -71,9 +67,6 @@ public class LinkedList<source> {
 
 		if (currNode == null)
 			System.out.println("LinkedList is empty.");
-
-		System.out.print("LinkedList: ");
-		// Traverse through the LinkedList
 		while (currNode != null) {
 			// Print the data at current node
 			System.out.print(currNode.data + " ");

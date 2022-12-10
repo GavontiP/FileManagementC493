@@ -4,7 +4,7 @@ package filemanagementcs493.application;
  *
  * @author gavon
  */
-public abstract class source {
+public abstract class ObjectInterface {
 
     /**
      *
@@ -30,7 +30,7 @@ public abstract class source {
     */
     protected String name;
 
-    public source(String location, String size, String created, String name) {
+    public ObjectInterface(String location, String size, String created, String name) {
         this.location = location;
         this.size = size;
         this.created = created;
@@ -77,7 +77,7 @@ public abstract class source {
         this.name = name;
     }
 
-    source() {
+    ObjectInterface() {
 
     }
 

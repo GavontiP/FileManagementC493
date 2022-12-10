@@ -1,16 +1,16 @@
 package filemanagementcs493.persistence;
 
-import filemanagementcs493.application.Filess;
-import filemanagementcs493.application.source;
+import filemanagementcs493.application.FileClass;
+import filemanagementcs493.application.ObjectInterface;
 import filemanagementcs493.utils.*;
 
 public interface Dao<T> {
 
     public LinkedList getAll();
 
-    public boolean add(source item);
+    public boolean add(ObjectInterface item);
 
-    public boolean update(source item);
+    public boolean update(ObjectInterface item, int ID);
 
-    public boolean delete(source item);
+    public boolean delete(ObjectInterface item);
 }
