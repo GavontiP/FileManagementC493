@@ -1,8 +1,8 @@
 package filemanagementcs493.presentation;
 
+import filemanagementcs493.application.LinkedList;
 import javax.swing.table.AbstractTableModel;
 import filemanagementcs493.utils.*; // Needed for the domain classes
-import java.util.Arrays;
 
 public class FileTableModel extends AbstractTableModel {
     private LinkedList filelist = new LinkedList();
@@ -34,7 +34,7 @@ public class FileTableModel extends AbstractTableModel {
         String temp[] = filelist.findAtPosition(filelist, row).toString().split(",");
         String[] arr = new String[temp.length];
         for (int i = 0; i < 5; i++) {
-            arr[i] = temp[i].split("\\=")[1];
+            arr[i] = temp[i].split("\\=")[1].split("}")[0];
         }
         return arr[column];
     }

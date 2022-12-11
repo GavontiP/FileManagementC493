@@ -8,11 +8,9 @@ package filemanagementcs493.persistence;
 import filemanagementcs493.application.DirectoryClass;
 import filemanagementcs493.application.FileClass;
 import filemanagementcs493.application.ObjectInterface;
-import filemanagementcs493.utils.LinkedList;
-import static filemanagementcs493.utils.utils.*;
+import filemanagementcs493.application.LinkedList;
+import static filemanagementcs493.application.utils.*;
 import java.awt.Desktop;
-import java.io.File; // Import the File class
-import java.io.IOException; // Import the IOException class to handle errors
 import java.io.File;
 import org.apache.commons.io.FileUtils;
 
@@ -25,7 +23,6 @@ import java.util.logging.Logger;
  * @author gavon
  */
 public class systemCalls implements SystemInterface {
-    private final LinkedList filelist = new LinkedList();
     private final fileDao database = new fileDao();
 
     public systemCalls() {
@@ -99,6 +96,8 @@ public class systemCalls implements SystemInterface {
 
         // store the return value of renameTo() method in
         // flag
+        System.out.println(file);
+        System.out.println(rename);
         boolean flag = file.renameTo(rename);
 
         // if renameTo() return true then if block is
@@ -139,19 +138,16 @@ public class systemCalls implements SystemInterface {
     }
 
     public void findFile(String name, File file) {
-        System.out.println(file);
-        File[] list = file.listFiles();
-        System.out.println(list.length);
+        try{
+             File[] list = file.listFiles();
         if (list != null)
             for (File fil : list) {
-                System.out.println("looking...");
-                // if (fil.isDirectory())
-                // {
-                // findFile(name,fil);
-                // }
                 if (name.equalsIgnoreCase(fil.getName())) {
-                    System.out.println(fil.getParentFile());
-                    try {
+                 if (fil.isDirectory())
+                 {
+                 //TODO
+                 }else if(fil.isFile()){
+                                         try {
                         if (!Desktop.isDesktopSupported())// check if Desktop is supported by Platform or not
                         {
                             System.out.println("not supported");
@@ -163,8 +159,12 @@ public class systemCalls implements SystemInterface {
                     } catch (IOException e) {
                         System.out.println(e);
                     }
+                 }
                 }
             }
+        }catch(Exception e){
+            System.out.println("Error: " + e);
+        }
     }
 
 }

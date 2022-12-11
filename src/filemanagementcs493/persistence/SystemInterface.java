@@ -6,7 +6,7 @@
 package filemanagementcs493.persistence;
 
 import filemanagementcs493.application.ObjectInterface;
-import filemanagementcs493.utils.LinkedList;
+import filemanagementcs493.application.LinkedList;
 import java.io.File;
 
 /**

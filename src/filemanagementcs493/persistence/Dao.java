@@ -1,5 +1,6 @@
 package filemanagementcs493.persistence;
 
+import filemanagementcs493.application.LinkedList;
 import filemanagementcs493.application.FileClass;
 import filemanagementcs493.application.ObjectInterface;
 import filemanagementcs493.utils.*;

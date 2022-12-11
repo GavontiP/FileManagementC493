@@ -2,7 +2,7 @@ package filemanagementcs493.persistence;
 
 import filemanagementcs493.application.*; // Needed for the domain classes
 import java.sql.*; // Needed for DB server operations
-import filemanagementcs493.utils.LinkedList; // Needed for the ArrayList ADT
+import filemanagementcs493.application.LinkedList; // Needed for the ArrayList ADT
 
 /**
  *
@@ -13,7 +13,7 @@ public class fileDao implements Dao {
     private Statement statement = null;
     private Connection connection = null;
     private ResultSet result = null;
-    private String tableName = "directory7";
+    private String tableName = "directory8";
 
     public fileDao() {
         try {
@@ -122,7 +122,7 @@ public class fileDao implements Dao {
             } else {
                 System.out.println(name + " record found and deleted");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("SQL Exception: " + e);
         }
 
