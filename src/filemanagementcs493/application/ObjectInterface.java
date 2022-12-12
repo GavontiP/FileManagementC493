@@ -1,5 +1,8 @@
 package filemanagementcs493.application;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author gavon
@@ -89,15 +92,22 @@ public abstract class ObjectInterface {
 
     /**
      *
+     * @param Item
      * @return
      */
     public Boolean validate() {
         boolean returnValue = true;
-        // try {
-        if (type == null || location == null || size == null || created == null) {
+        Pattern pattern = Pattern.compile("([a-zA-Z]:)?(\\\\[a-zA-Z0-9_.-]+)+\\\\?");
+        Matcher matcher = pattern.matcher(this.location);
+        boolean matchFound = matcher.find();
+    if(!matchFound) {
+      System.out.println("Match not found");
+      returnValue= false;
+    } 
+        if (type == null || location == null || size == null || created == null || name == null) {
             returnValue = false;
         }
-        if ("".equals(type) || "".equals(location) || "".equals(size) || "".equals(created)) {
+        if ("".equals(type) || "".equals(location) || "".equals(size) || "".equals(created) || "".equals(name)) {
             returnValue = false;
         }
         return returnValue;

@@ -68,14 +68,14 @@ public class systemCalls implements SystemInterface {
 
     @Override
     public boolean add(ObjectInterface item) {
-        boolean value = true;
+        boolean value = false;
         File theDir = new File(item.getLocation());
         if (!theDir.exists()) {
             if (item.getType().equals("file")) {
                 try {
-                    theDir.createNewFile();
+                    value = theDir.createNewFile();
                 } catch (IOException ex) {
-                    value = false;
+                    
                     Logger.getLogger(systemCalls.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
@@ -139,15 +139,12 @@ public class systemCalls implements SystemInterface {
 
     public void findFile(String name, File file) {
         try{
+            System.out.println(name);
              File[] list = file.listFiles();
         if (list != null)
             for (File fil : list) {
                 if (name.equalsIgnoreCase(fil.getName())) {
-                 if (fil.isDirectory())
-                 {
-                 //TODO
-                 }else if(fil.isFile()){
-                                         try {
+                    System.out.println(fil.getName());
                         if (!Desktop.isDesktopSupported())// check if Desktop is supported by Platform or not
                         {
                             System.out.println("not supported");
@@ -156,13 +153,11 @@ public class systemCalls implements SystemInterface {
                         Desktop desktop = Desktop.getDesktop();
                         if (fil.exists()) // checks file exists or not
                             desktop.open(fil); // opens the specified file
-                    } catch (IOException e) {
-                        System.out.println(e);
-                    }
-                 }
+               
+                 
                 }
             }
-        }catch(Exception e){
+        }catch(IOException e){
             System.out.println("Error: " + e);
         }
     }

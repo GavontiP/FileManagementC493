@@ -2,7 +2,6 @@ package filemanagementcs493.presentation;
 
 import filemanagementcs493.application.LinkedList;
 import javax.swing.table.AbstractTableModel;
-import filemanagementcs493.utils.*; // Needed for the domain classes
 
 public class FileTableModel extends AbstractTableModel {
     private LinkedList filelist = new LinkedList();

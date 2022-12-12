@@ -3,9 +3,6 @@ package filemanagementcs493.application;
 
 // a Singly Linked List
 
-import filemanagementcs493.application.ObjectInterface;
-import filemanagementcs493.state;
-
 public class LinkedList<source> {
 
 	Node head; // head of list
